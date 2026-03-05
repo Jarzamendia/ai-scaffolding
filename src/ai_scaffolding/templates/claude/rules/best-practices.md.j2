@@ -1,0 +1,69 @@
+# Best Practices
+{% if language == "Python" %}
+## Estilo de Codigo
+
+- Seguir PEP 8 e convencoes do ruff.
+- Usar snake_case para funcoes e variaveis, PascalCase para classes.
+- Strings com aspas duplas.
+- Imports organizados: stdlib > terceiros > locais, separados por linha em branco.
+
+## Dependencias
+
+- Usar apenas dependencias declaradas no `pyproject.toml`.
+- Nao introduzir novas dependencias sem justificativa explicita.
+- Preferir stdlib quando possivel.
+
+## Tratamento de Erros
+
+- Usar excecoes especificas, nunca `except Exception` generico.
+- Nao silenciar erros com `pass` em blocos except.
+
+## Testes
+
+- Usar pytest como runner exclusivo.
+- Agrupar testes em classes por contexto.
+- Usar `tmp_path` fixture para testes que escrevem no disco.
+- Mockar I/O externo com `unittest.mock.patch`.
+
+## Ferramentas
+
+```bash
+ruff check .        # Lint
+ruff format .       # Format
+mypy src/           # Type check
+```
+{% elif language == "Node.js" %}
+## Estilo de Codigo
+
+- Seguir convencoes do ESLint e Prettier.
+- Usar camelCase para funcoes e variaveis, PascalCase para classes e tipos.
+- Strings com aspas simples (configuravel).
+- Imports organizados: node builtins > terceiros > locais.
+
+## Dependencias
+
+- Usar apenas dependencias declaradas no `package.json`.
+- Nao introduzir novas dependencias sem justificativa explicita.
+- Preferir node builtins quando possivel.
+
+## Tratamento de Erros
+
+- Usar tipos de erro especificos ou classes customizadas.
+- Nao silenciar erros com catch vazio.
+- Usar try/catch para operacoes async, nunca .catch() ignorado.
+
+## Testes
+
+- Usar vitest como runner.
+- Agrupar testes em describe/it blocks por contexto.
+- Usar temporary directories para testes que escrevem no disco.
+- Mockar I/O externo com vi.mock().
+
+## Ferramentas
+
+```bash
+npx eslint .            # Lint
+npx prettier --check .  # Format check
+npx tsc --noEmit        # Type check
+```
+{% endif %}

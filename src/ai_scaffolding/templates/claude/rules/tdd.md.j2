@@ -1,0 +1,52 @@
+# TDD Enforcement
+
+Todo desenvolvimento neste repositorio segue obrigatoriamente o ciclo RED-GREEN-REFACTOR.
+
+## Regras Inviolaveis
+
+1. **NUNCA implemente codigo de producao sem um teste falhando primeiro.**
+   - Antes de criar ou modificar qualquer arquivo de producao, deve existir um teste correspondente que falhe.
+
+2. **Padrao AAA (Arrange-Act-Assert)**
+   - Todo teste segue: preparar dados, executar acao, verificar resultado.
+   - Nomes de teste descrevem comportamento: `test_<acao>_<resultado_esperado>`.
+
+3. **Fase RED: Escreva o teste primeiro**
+   - Crie o teste descrevendo o comportamento desejado.
+   - Execute o runner de testes e confirme que falha.
+   - O erro deve ser por ausencia de implementacao, nao por erro de sintaxe.
+
+4. **Fase GREEN: Implementacao minima**
+   - Escreva apenas o codigo necessario para o teste passar.
+   - Nao adicione logica especulativa ou features extras.
+
+5. **Fase REFACTOR: Limpeza com rede de seguranca**
+   - Somente apos GREEN, refatore para melhorar clareza ou eliminar duplicacao.
+   - Todos os testes devem continuar passando.
+
+6. **NUNCA altere um teste para fazer codigo ruim passar.**
+
+## Comandos de Verificacao
+{% if language == "Python" %}
+```bash
+# Executar todos os testes
+python -m pytest tests/ -v
+
+# Executar teste especifico
+python -m pytest tests/test_exemplo.py::TestClasse::test_metodo -v
+
+# Com cobertura
+python -m pytest tests/ --cov --cov-report=term-missing
+```
+{% elif language == "Node.js" %}
+```bash
+# Executar todos os testes
+npx vitest run
+
+# Executar teste especifico
+npx vitest run tests/exemplo.test.ts
+
+# Com cobertura
+npx vitest run --coverage
+```
+{% endif %}

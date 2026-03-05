@@ -1,0 +1,25 @@
+---
+description: Code style and best practices enforcement
+alwaysApply: true
+---
+{% if language == "Python" %}
+# Best Practices - Python
+
+- Seguir PEP 8 e convencoes do ruff.
+- snake_case para funcoes/variaveis, PascalCase para classes.
+- Imports organizados: stdlib > terceiros > locais.
+- Usar apenas dependencias do `pyproject.toml`. Preferir stdlib.
+- Excecoes especificas, nunca `except Exception` generico.
+- pytest como runner. Agrupar testes em classes por contexto.
+- `ruff check .` para lint, `ruff format .` para formatacao.
+{% elif language == "Node.js" %}
+# Best Practices - Node.js
+
+- Seguir convencoes ESLint e Prettier.
+- camelCase para funcoes/variaveis, PascalCase para classes/tipos.
+- Imports organizados: node builtins > terceiros > locais.
+- Usar apenas dependencias do `package.json`. Preferir node builtins.
+- Tipos de erro especificos, nunca catch vazio.
+- vitest como runner. Agrupar testes em describe/it blocks.
+- `npx eslint .` para lint, `npx prettier --check .` para formato.
+{% endif %}

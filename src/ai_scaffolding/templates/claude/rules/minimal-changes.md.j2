@@ -1,0 +1,24 @@
+# Minimal Changes Policy
+
+Regras para manter o escopo de alteracoes restrito e previsivel.
+
+## Principios
+
+1. **Altere apenas o que foi pedido.**
+   - Se a tarefa e adicionar uma feature, nao refatore codigo existente.
+   - Se a tarefa e corrigir um bug, nao melhore areas nao relacionadas.
+
+2. **Sem gold plating.**
+   - Nao adicione features, parametros ou tratamentos que nao foram solicitados.
+   - Nao crie abstracoes "para o futuro". Resolva o problema de hoje.
+
+3. **Sem refatoracoes oportunistas.**
+   - Nao renomeie variaveis, reorganize imports, ou mude formatacao de codigo que nao faz parte da tarefa.
+   - Se encontrar algo que precisa melhorar, reporte separadamente.
+
+4. **Testes cirurgicos.**
+   - Adicione testes apenas para o comportamento novo ou alterado.
+   - Nao adicione testes retroativos para codigo que nao foi modificado.
+
+5. **Um commit, um proposito.**
+   - Cada alteracao deve ter um escopo claro e descritivel em uma frase.

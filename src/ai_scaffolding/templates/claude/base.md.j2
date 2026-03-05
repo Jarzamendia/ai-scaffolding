@@ -1,0 +1,52 @@
+# {{ project_name }}
+
+<!-- Descreva o proposito do seu projeto aqui -->
+
+## Stack
+{% if language == "Python" %}
+- Linguagem: Python
+- Testes: pytest
+- Lint/Format: ruff
+- Type check: mypy
+{% elif language == "Node.js" %}
+- Linguagem: Node.js / TypeScript
+- Testes: vitest
+- Lint/Format: eslint + prettier
+- Type check: tsc
+{% endif %}
+
+## Comandos
+{% if language == "Python" %}
+```bash
+# Testes
+python -m pytest tests/ -v
+
+# Lint
+ruff check .
+ruff format .
+
+# Type check
+mypy src/
+```
+{% elif language == "Node.js" %}
+```bash
+# Testes
+npx vitest run
+
+# Lint
+npx eslint .
+npx prettier --check .
+
+# Type check
+npx tsc --noEmit
+```
+{% endif %}
+
+## Regras Mandatorias
+
+MANDATORY: Leia os arquivos em `.claude/rules/` antes de qualquer implementacao:
+
+- `.claude/rules/tdd-enforcement.md` - Ciclo RED-GREEN-REFACTOR obrigatorio
+- `.claude/rules/best-practices.md` - Convencoes e padrao do projeto
+- `.claude/rules/architecture-boundaries.md` - Separacao de camadas e responsabilidades
+- `.claude/rules/minimal-changes.md` - Escopo restrito de alteracoes

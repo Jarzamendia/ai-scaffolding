@@ -1,0 +1,26 @@
+# Architecture Boundaries
+
+Regras de separacao de responsabilidades e limites entre camadas.
+
+## Principios
+
+1. **Separacao de camadas**: Cada modulo tem uma responsabilidade unica e bem definida. Nao misture logica de apresentacao com logica de negocio ou acesso a dados.
+
+2. **Sem God Objects**: Nenhum modulo deve acumular multiplas responsabilidades. Se um arquivo crescer demais, extraia submodulos.
+
+3. **Dependencias unidirecionais**: O fluxo de dependencias deve ser claro e sem ciclos. Camadas superiores dependem das inferiores, nunca o contrario.
+
+4. **Sem imports circulares**: Se A importa B, B nao pode importar A. Extraia interfaces ou mova codigo compartilhado para um modulo separado.
+{% if language == "Python" %}
+5. **Convencoes Python**:
+   - Use packages para agrupar modulos relacionados.
+   - Prefira composicao sobre heranca.
+   - Interfaces via Protocol (typing) quando necessario.
+{% elif language == "Node.js" %}
+5. **Convencoes Node.js**:
+   - Use ES modules (import/export) consistentemente.
+   - Prefira composicao sobre heranca de classes.
+   - Interfaces via TypeScript interfaces quando necessario.
+{% endif %}
+
+6. **Dados externos sao isolados**: Acesso a filesystem, rede, banco de dados ou APIs externas deve ficar em modulos dedicados, nunca misturado com logica de negocio.
