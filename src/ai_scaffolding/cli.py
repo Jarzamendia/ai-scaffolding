@@ -16,7 +16,8 @@ def main():
 
 @main.command()
 @click.option("--output-dir", default=".", help="Directory to generate files in.")
-def init(output_dir):
+@click.option("--dry-run", is_flag=True, help="Preview files without creating them.")
+def init(output_dir, dry_run):
     """Scaffold AI rule files for your project."""
     choices = ask_user_choices()
 
@@ -29,17 +30,27 @@ def init(output_dir):
     click.echo(f"  Nivel de processo: {choices['process_level']}")
     click.echo("")
 
-    created = generate_files(
+    results = generate_files(
         output_dir=output_dir,
         ais=choices["ais"],
         language=choices["language"],
         process_level=choices["process_level"],
         project_name=project_name,
+        dry_run=dry_run,
     )
 
-    if created:
-        click.echo("Arquivos gerados:")
-        for f in created:
-            click.echo(f"  {f}")
+    if dry_run:
+        click.echo("Dry run - arquivos que seriam gerados:")
+        for r in results:
+            if r["status"] == "would_create":
+                click.echo(f"  [criar] {r['path']}")
+            elif r["status"] == "skipped":
+                click.echo(f"  [ja existe] {r['path']}")
     else:
-        click.echo("Nenhum arquivo novo gerado (arquivos ja existem).")
+        created = [r for r in results if r["status"] == "created"]
+        if created:
+            click.echo("Arquivos gerados:")
+            for r in created:
+                click.echo(f"  {r['path']}")
+        else:
+            click.echo("Nenhum arquivo novo gerado (arquivos ja existem).")

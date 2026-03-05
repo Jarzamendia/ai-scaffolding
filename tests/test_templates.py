@@ -54,7 +54,9 @@ class TestClaudeRulesTemplates:
 
     def test_boundaries_template_has_separation_of_concerns(self):
         result = _render("claude/rules/boundaries.md.j2", language="Python")
-        assert "separa" in result.lower() or "boundary" in result.lower() or "camada" in result.lower()
+        assert (
+            "separa" in result.lower() or "boundary" in result.lower() or "camada" in result.lower()
+        )
 
     def test_best_practices_python_has_pep8(self):
         result = _render("claude/rules/best-practices.md.j2", language="Python")
