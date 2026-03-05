@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from ai_scaffolding.generator import generate_files
+from aiscaffold.generator import generate_files
 
 
 class TestGeneratorClaude:
@@ -188,7 +188,7 @@ class TestGeneratorNoOverwrite:
 
 class TestCLIIntegration:
     def test_init_calls_generator(self, tmp_path):
-        from ai_scaffolding.cli import main
+        from aiscaffold.cli import main
 
         mock_choices = {
             "ais": ["Claude Code"],
@@ -196,7 +196,7 @@ class TestCLIIntegration:
             "process_level": "Minimo (apenas arquivo base da IA)",
         }
         runner = CliRunner()
-        with patch("ai_scaffolding.cli.ask_user_choices", return_value=mock_choices):
+        with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
             result = runner.invoke(main, ["init", "--output-dir", str(tmp_path)])
 
         assert result.exit_code == 0

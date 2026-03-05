@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from ai_scaffolding.cli import main
+from aiscaffold.cli import main
 
 
 class TestCLIInit:
@@ -19,7 +19,7 @@ class TestCLIInit:
             "process_level": "Pipeline completa (TDD + boas praticas + fronteiras arquiteturais)",
         }
         runner = CliRunner()
-        with patch("ai_scaffolding.cli.ask_user_choices", return_value=mock_choices):
+        with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
             result = runner.invoke(main, ["init"])
 
         assert result.exit_code == 0
@@ -35,7 +35,7 @@ class TestCLIInit:
             "process_level": "Minimo (apenas arquivo base da IA)",
         }
         runner = CliRunner()
-        with patch("ai_scaffolding.cli.ask_user_choices", return_value=mock_choices):
+        with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
             result = runner.invoke(main, ["init"])
 
         assert result.exit_code == 0
@@ -57,7 +57,7 @@ class TestCLIDryRun:
             "process_level": "Pipeline completa (TDD + boas praticas + fronteiras arquiteturais)",
         }
         runner = CliRunner()
-        with patch("ai_scaffolding.cli.ask_user_choices", return_value=mock_choices):
+        with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
             result = runner.invoke(main, ["init", "--output-dir", str(tmp_path), "--dry-run"])
 
         assert result.exit_code == 0
@@ -71,7 +71,7 @@ class TestCLIDryRun:
             "process_level": "Minimo (apenas arquivo base da IA)",
         }
         runner = CliRunner()
-        with patch("ai_scaffolding.cli.ask_user_choices", return_value=mock_choices):
+        with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
             result = runner.invoke(main, ["init", "--output-dir", str(tmp_path), "--dry-run"])
 
         assert result.exit_code == 0
@@ -85,8 +85,38 @@ class TestCLIDryRun:
             "process_level": "Minimo (apenas arquivo base da IA)",
         }
         runner = CliRunner()
-        with patch("ai_scaffolding.cli.ask_user_choices", return_value=mock_choices):
+        with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
             result = runner.invoke(main, ["init", "--output-dir", str(tmp_path), "--dry-run"])
 
         assert result.exit_code == 0
         assert "skip" in result.output.lower() or "existe" in result.output.lower()
+
+
+class TestCLIEntryPoints:
+    def test_main_module_is_runnable(self):
+        """python -m aiscaffold --help should work."""
+        import subprocess
+        import sys
+
+        result = subprocess.run(
+            [sys.executable, "-m", "aiscaffold", "--help"],
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0
+        assert "init" in result.stdout
+
+    def test_script_entry_point_is_configured(self):
+        """aiscaffold entry point should be defined in package metadata."""
+        from importlib.metadata import distribution
+
+        dist = distribution("aiscaffold")
+        entry_points = [ep for ep in dist.entry_points if ep.group == "console_scripts"]
+        names = [ep.name for ep in entry_points]
+        assert "aiscaffold" in names
+
+    def test_init_without_subcommand_shows_help(self):
+        runner = CliRunner()
+        result = runner.invoke(main, [])
+        assert result.exit_code == 0
+        assert "init" in result.output

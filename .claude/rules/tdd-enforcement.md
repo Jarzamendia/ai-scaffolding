@@ -39,5 +39,5 @@ python -m pytest tests/ -v
 python -m pytest tests/test_cli.py::TestCLIInit::test_init_command_exists -v
 
 # Executar com cobertura
-python -m pytest tests/ --cov=ai_scaffolding --cov-report=term-missing
+python -m pytest tests/ --cov=aiscaffold --cov-report=term-missing
 ```

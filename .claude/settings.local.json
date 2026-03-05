@@ -3,7 +3,10 @@
     "allow": [
       "Bash(pip install:*)",
       "Bash(python:*)",
-      "Bash(ai-scaffold:*)"
+      "Bash(ai-scaffold:*)",
+      "Bash(mv:*)",
+      "Bash(pip:*)",
+      "Bash(rm:*)"
     ]
   }
 }

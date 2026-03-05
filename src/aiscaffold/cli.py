@@ -4,14 +4,16 @@ import os
 
 import click
 
-from ai_scaffolding.generator import generate_files
-from ai_scaffolding.prompts import ask_user_choices
+from aiscaffold.generator import generate_files
+from aiscaffold.prompts import ask_user_choices
 
 
-@click.group()
-def main():
+@click.group(invoke_without_command=True)
+@click.pass_context
+def main(ctx):
     """AI Scaffolding - Generate AI coding rules for your projects."""
-    pass
+    if ctx.invoked_subcommand is None:
+        click.echo(ctx.get_help())
 
 
 @main.command()

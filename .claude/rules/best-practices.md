@@ -12,9 +12,9 @@ Convencoes e padroes obrigatorios para este projeto.
 
 ## Estrutura do Projeto
 
-- Codigo de producao em `src/ai_scaffolding/`.
+- Codigo de producao em `src/aiscaffold/`.
 - Testes em `tests/`, espelhando a estrutura de `src/`.
-- Templates Jinja2 em `src/ai_scaffolding/templates/`, organizados por IA.
+- Templates Jinja2 em `src/aiscaffold/templates/`, organizados por IA.
 - Cada modulo tem uma responsabilidade clara e unica.
 
 ## Dependencias

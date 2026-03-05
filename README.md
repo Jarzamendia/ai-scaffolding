@@ -1,4 +1,4 @@
-# AI Scaffolding
+# aiscaffold
 
 CLI tool that generates AI coding rule files for your projects. Supports **Claude Code**, **Cursor**, and **OpenAI Codex** with language-specific templates based on XP and TDD best practices.
 
@@ -12,21 +12,44 @@ Run a single command, answer 3 questions, and get pre-configured AI rule files g
 
 ## Install
 
+### Recommended: pipx (isolated, works globally)
+
 ```bash
-pip install -e .
+pipx install git+https://github.com/YOUR_USER/ai-scaffolding.git
 ```
+
+### Alternative: pip
+
+```bash
+pip install git+https://github.com/YOUR_USER/ai-scaffolding.git
+```
+
+### From source
+
+```bash
+git clone https://github.com/YOUR_USER/ai-scaffolding.git
+cd ai-scaffolding
+pip install .
+```
+
+After installing, `aiscaffold` is available globally from any directory.
+
+> **Troubleshooting**: If `aiscaffold` is not found after `pip install`, your Python Scripts directory may not be in PATH. Either use `pipx` (recommended) or run via `python -m aiscaffold` instead.
 
 ## Usage
 
 ```bash
-# Interactive mode - generates files in current directory
-python -m ai_scaffolding init
+# From any directory
+aiscaffold init
 
 # Specify output directory
-python -m ai_scaffolding init --output-dir ./my-project
+aiscaffold init --output-dir ./my-project
 
 # Preview without creating files
-python -m ai_scaffolding init --dry-run
+aiscaffold init --dry-run
+
+# Alternative (always works)
+python -m aiscaffold init
 ```
 
 ### Interactive prompts

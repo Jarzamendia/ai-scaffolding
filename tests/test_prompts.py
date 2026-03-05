@@ -1,4 +1,4 @@
-from ai_scaffolding.prompts import AI_CHOICES, LANGUAGE_CHOICES, PROCESS_LEVEL_CHOICES
+from aiscaffold.prompts import AI_CHOICES, LANGUAGE_CHOICES, PROCESS_LEVEL_CHOICES
 
 
 class TestChoicesDefinitions:

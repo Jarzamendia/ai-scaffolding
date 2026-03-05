@@ -2,7 +2,7 @@ import os
 
 from jinja2 import Environment, FileSystemLoader
 
-TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "..", "src", "ai_scaffolding", "templates")
+TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "..", "src", "aiscaffold", "templates")
 
 
 def _render(template_path: str, **context) -> str:

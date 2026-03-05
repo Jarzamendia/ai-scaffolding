@@ -7,7 +7,7 @@ Ferramenta CLI em Python que gera arquivos de regras para IAs de codificacao (Cl
 - Python >=3.10, empacotado com hatchling
 - CLI: click | Prompts: questionary | Templates: Jinja2
 - Testes: pytest | Lint/Format: ruff | Types: mypy
-- Estrutura src layout: `src/ai_scaffolding/`
+- Estrutura src layout: `src/aiscaffold/`
 
 ## Comandos
 
@@ -16,7 +16,7 @@ Ferramenta CLI em Python que gera arquivos de regras para IAs de codificacao (Cl
 pip install -e .
 
 # Executar CLI
-python -m ai_scaffolding init
+python -m aiscaffold init
 
 # Testes
 python -m pytest tests/ -v
@@ -32,7 +32,7 @@ mypy src/
 ## Arquitetura
 
 ```
-src/ai_scaffolding/
+src/aiscaffold/
   cli.py          - Entry point CLI (click group + commands)
   prompts.py      - Perguntas interativas (questionary)
   generator.py    - Orquestra geracao de arquivos a partir dos templates
@@ -56,5 +56,5 @@ MANDATORY: Leia os arquivos em `.claude/rules/` antes de qualquer implementacao:
 
 - PLAN.md contem o planejamento completo das 4 fases
 - DOCS.md contem a fundamentacao teorica (XP, TDD, regras de IA)
-- Os templates Jinja2 em `src/ai_scaffolding/templates/` sao o produto final entregue ao usuario
+- Os templates Jinja2 em `src/aiscaffold/templates/` sao o produto final entregue ao usuario
 - Este repositorio pratica dogfooding: usa suas proprias regras de IA
