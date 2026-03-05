@@ -36,6 +36,15 @@ class TestClaudeBaseTemplate:
         result = _render("claude/base.md.j2", project_name="x", language="Python")
         assert ".claude/rules/" in result
 
+    def test_has_maintenance_section(self):
+        result = _render("claude/base.md.j2", project_name="x", language="Python")
+        lower = result.lower()
+        assert "manuten" in lower or "maintenance" in lower or "atualiz" in lower
+
+    def test_maintenance_mentions_this_file(self):
+        result = _render("claude/base.md.j2", project_name="x", language="Python")
+        assert "CLAUDE.md" in result
+
 
 class TestClaudeRulesTemplates:
     def test_tdd_template_contains_red_green_refactor(self):
@@ -79,6 +88,11 @@ class TestCursorTemplates:
         result = _render("cursor/base.mdc.j2", project_name="x", language="Python")
         assert "---" in result
         assert "alwaysApply" in result or "description" in result
+
+    def test_base_has_maintenance_section(self):
+        result = _render("cursor/base.mdc.j2", project_name="x", language="Python")
+        lower = result.lower()
+        assert "manuten" in lower or "maintenance" in lower or "atualiz" in lower
 
     def test_tdd_rule_has_glob_pattern(self):
         result = _render("cursor/rules/tdd.mdc.j2", language="Python")
@@ -125,3 +139,8 @@ class TestCodexTemplates:
     def test_agents_md_has_tdd_section(self):
         result = _render("codex/base.md.j2", project_name="x", language="Python")
         assert "TDD" in result or "test" in result.lower()
+
+    def test_agents_md_has_maintenance_section(self):
+        result = _render("codex/base.md.j2", project_name="x", language="Python")
+        lower = result.lower()
+        assert "manuten" in lower or "maintenance" in lower or "atualiz" in lower

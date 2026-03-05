@@ -50,3 +50,12 @@ MANDATORY: Leia os arquivos em `.claude/rules/` antes de qualquer implementacao:
 - `.claude/rules/best-practices.md` - Convencoes e padrao do projeto
 - `.claude/rules/architecture-boundaries.md` - Separacao de camadas e responsabilidades
 - `.claude/rules/minimal-changes.md` - Escopo restrito de alteracoes
+
+## Manutencao dos Documentos de Regras
+
+Este arquivo (CLAUDE.md) e os arquivos em `.claude/rules/` sao documentos vivos. Mantenha-os atualizados:
+
+- **CLAUDE.md**: Atualize sempre que a stack, comandos ou estrutura do projeto mudarem. Este arquivo e o ponto de entrada — se estiver desatualizado, todas as instrucoes derivadas ficam comprometidas.
+- **Quando atualizar**: Ao adicionar/remover dependencias, mudar estrutura de diretorios, alterar comandos de build/test/lint, ou mudar convencoes do projeto.
+- **Regras em `.claude/rules/`**: Revise ao final de cada ciclo de desenvolvimento. Remova regras que nao se aplicam mais e adicione novas conforme o projeto evolui.
+- **Principio**: Regras desatualizadas sao piores que nenhuma regra — geram instrucoes contraditorias e confundem o agente.
