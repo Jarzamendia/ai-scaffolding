@@ -1,0 +1,47 @@
+# Commits and CI/CD
+
+{% if rules_lang == "en-US" %}
+## Conventional Commits
+
+**Always** use **Conventional Commits**. Format: `type(scope): description`.
+
+**Allowed types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+
+**Correct:** `feat(auth): add JWT validation logic`
+
+**Wrong:** `fixed the login bug and also added some styles`
+
+- **Atomicity:** One commit, one logical change.
+- **Imperative mood** in the title (e.g. "add", "fix", not "added", "fixed").
+- **Title:** Maximum 50 characters. Body explains the **what** and **why**, not the "how".
+
+## CI/CD
+
+- **Never** skip tests in the pipeline. **Always** verify tests and lint pass locally before commit/push.
+- If CI fails after a push, **your first priority** is to analyse logs and fix the failure. Do not start new tasks with a "red" pipeline.
+- **Required action on failure:** (1) Read the CI error log. (2) Identify whether it is environment, test or lint. (3) Propose the exact fix based on log evidence.
+- **Secrets:** Never include keys, passwords or secrets in code or versioned files. Use environment variables and keep `.env.example` updated (without real values).
+- **Protected branches:** Respect protection rules (e.g. `main`). Use Pull Requests to integrate changes; do not push directly to protected branches.
+{% else %}
+## Conventional Commits
+
+**Sempre** utilize o padrão **Conventional Commits**. Formato: `tipo(escopo): descrição`.
+
+**Tipos permitidos:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+
+**Certo:** `feat(auth): add JWT validation logic`
+
+**Errado:** `fixed the login bug and also added some styles`
+
+- **Atomicidade:** Um commit, uma mudança lógica.
+- **Modo imperativo** no título (ex: "add", "fix", não "added", "fixed").
+- **Título:** Máximo 50 caracteres. Corpo explica o **O quê** e o **Porquê**, não o "Como".
+
+## CI/CD
+
+- **Nunca** pule os testes no pipeline. **Sempre** verifique se testes e lint passam localmente antes de commit/push.
+- Se o CI falhar após um push, **sua primeira prioridade** é analisar os logs e corrigir a falha. Não inicie novas tarefas com o pipeline "vermelho".
+- **Ação obrigatória em falha:** (1) Leia o log de erro do CI. (2) Identifique se é ambiente, teste ou lint. (3) Proponha a correção exata com base na evidência do log.
+- **Segredos:** Nunca inclua chaves, senhas ou segredos no código ou em arquivos versionados. Use variáveis de ambiente e mantenha `.env.example` atualizado (sem valores reais).
+- **Branches protegidas:** Respeite as regras de proteção (ex: `main`). Use Pull Requests para integrar mudanças; não faça push direto para branches protegidas.
+{% endif %}

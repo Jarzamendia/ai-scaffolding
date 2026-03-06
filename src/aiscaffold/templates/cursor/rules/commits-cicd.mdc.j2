@@ -1,0 +1,38 @@
+---
+{% if rules_lang == "en-US" %}
+description: Conventional Commits and CI/CD - atomic commits, never skip tests, fix CI first
+{% else %}
+description: Conventional Commits and CI/CD - atomic commits, never skip tests, fix CI first
+{% endif %}
+alwaysApply: true
+---
+
+# Commits and CI/CD
+
+{% if rules_lang == "en-US" %}
+## Commits
+
+- **Conventional Commits:** `type(scope): description` — types: feat, fix, docs, style, refactor, test, chore.
+- **Atomicity:** One commit, one logical change. Title in imperative mood (add, fix, not added/fixed).
+- **Correct:** `feat(auth): add JWT validation`. **Wrong:** `fixed login and also changed styles`.
+
+## CI/CD
+
+- **Never** skip tests in CI. Verify tests and lint locally before commit/push.
+- If CI fails: **priority #1** — read the log, identify cause, fix based on evidence. Do not start new tasks with a red pipeline.
+- **Secrets:** Never in code. Use environment variables; keep `.env.example` updated.
+- Respect protected branches; use Pull Requests to integrate.
+{% else %}
+## Commits
+
+- **Conventional Commits:** `tipo(escopo): descrição` — tipos: feat, fix, docs, style, refactor, test, chore.
+- **Atomicidade:** Um commit, uma mudança lógica. Título em modo imperativo (add, fix, não added/fixed).
+- **Certo:** `feat(auth): add JWT validation`. **Errado:** `fixed login and also changed styles`.
+
+## CI/CD
+
+- **Nunca** pule testes no CI. Verifique testes e lint localmente antes de commit/push.
+- Se o CI falhar: **prioridade #1** — leia o log, identifique causa, corrija com base na evidência. Não inicie novas tarefas com pipeline vermelho.
+- **Segredos:** Nunca no código. Use variáveis de ambiente; mantenha `.env.example` atualizado.
+- Respeite branches protegidas; use Pull Requests para integrar.
+{% endif %}

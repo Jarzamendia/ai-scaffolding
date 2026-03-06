@@ -1,0 +1,77 @@
+# Security and Sanitization
+
+{% if rules_lang == "en-US" %}
+Imperative rules to prevent common vulnerabilities (OWASP Top 10). Treat all user input and external data as potentially malicious.
+
+## Injection Prevention
+
+**SQL / NoSQL:** **Always** use parameterised queries or safe ORMs. **Never** use string concatenation or f-strings to build queries.
+
+**Correct:** `db.execute("SELECT * FROM users WHERE id = ?", [user_id])`
+
+**Wrong:** `db.execute(f"SELECT * FROM users WHERE id = {user_id}")`
+
+## Output Sanitization (XSS)
+
+**Always** sanitise and escape dynamic data before rendering it in HTML contexts. Use your framework's standard escape functions. **Never** use methods that bypass security (e.g. `dangerouslySetInnerHTML`) without rigorous prior sanitisation.
+
+## Safe Command Execution
+
+When executing system commands, **always** use argument lists. **Never** use `shell=True` or string concatenation in shell commands.
+{% if language == "Python" %}
+
+**Correct:** `subprocess.run(["ls", "-l", directory])`
+
+**Wrong:** `subprocess.run(f"ls -l {directory}", shell=True)`
+{% elif language == "Node.js" %}
+
+**Correct:** Use `child_process.spawn` with an argument array; avoid `exec()` or string concatenation in shell.
+{% endif %}
+
+## Secrets and PII Management
+
+**Never** include secrets (API keys, passwords, tokens) or Personally Identifiable Information (PII) directly in code. **Always** use environment variables or secure secrets managers. **Never** log sensitive information.
+
+## Additional Good Practices
+
+- **Input validation:** Always verify format, type and length of received data.
+- **Secure defaults:** Prefer HTTPS, strong encryption algorithms; disable insecure protocols.
+- **Least privilege:** Code and configuration should run with the minimum permission required.
+{% else %}
+Regras imperativas para prevenir vulnerabilidades comuns (OWASP Top 10). Trate toda entrada de usuário e dados externos como potencialmente maliciosos.
+
+## Prevenção de Injeção
+
+**SQL / NoSQL:** **Sempre** utilize queries parametrizadas ou ORMs seguros. **Nunca** utilize concatenação de strings ou f-strings para construir consultas.
+
+**Certo:** `db.execute("SELECT * FROM users WHERE id = ?", [user_id])`
+
+**Errado:** `db.execute(f"SELECT * FROM users WHERE id = {user_id}")`
+
+## Sanitização de Saída (XSS)
+
+**Sempre** sanitize e escape dados dinâmicos antes de renderizá-los em contextos HTML. Use as funções de escape padrão do seu framework. **Nunca** utilize métodos que ignorem a segurança (ex: `dangerouslySetInnerHTML`) sem sanitização prévia rigorosa.
+
+## Execução Segura de Comandos
+
+Ao executar comandos de sistema, **sempre** utilize listas de argumentos. **Nunca** utilize `shell=True` ou concatenação de strings em comandos de shell.
+{% if language == "Python" %}
+
+**Certo:** `subprocess.run(["ls", "-l", diretorio])`
+
+**Errado:** `subprocess.run(f"ls -l {diretorio}", shell=True)`
+{% elif language == "Node.js" %}
+
+**Certo:** Use `child_process.spawn` com array de argumentos; evite `exec()` ou concatenação de strings em shell.
+{% endif %}
+
+## Gestão de Segredos e PII
+
+**Nunca** inclua segredos (chaves de API, senhas, tokens) ou Informações de Identificação Pessoal (PII) diretamente no código. **Sempre** utilize variáveis de ambiente ou gerenciadores de segredos seguros. **Nunca** registre informações sensíveis em logs.
+
+## Boas Práticas Adicionais
+
+- **Validação de entrada:** Sempre verifique formato, tipo e comprimento de dados recebidos.
+- **Defaults seguros:** Prefira HTTPS, algoritmos de criptografia fortes; desabilite protocolos inseguros.
+- **Menor privilégio:** Código e configurações devem operar com o mínimo de permissão necessária.
+{% endif %}
