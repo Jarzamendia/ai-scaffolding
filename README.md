@@ -4,9 +4,9 @@ CLI tool that generates AI coding rule files for your projects. Supports **Claud
 
 ## What it does
 
-Run a single command, answer 3 questions, and get pre-configured AI rule files generated in your project directory:
+Run a single command, answer 4 questions, and get pre-configured AI rule files generated in your project directory:
 
-- **Claude Code**: `CLAUDE.md` + `.claude/rules/` (tdd, boundaries, best-practices, minimal-changes)
+- **Claude Code**: `CLAUDE.md` + `.claude/rules/` (tdd, boundaries, best-practices, minimal-changes, security, commits-cicd)
 - **Cursor**: `.cursor/rules/` with YAML frontmatter (`.mdc` files)
 - **Codex**: `AGENTS.md` with setup, commands, and development rules
 
@@ -66,16 +66,20 @@ python -m aiscaffold init
 
 ? Qual nivel de processo? (single-select)
   > Pipeline completa (TDD + boas praticas + fronteiras arquiteturais)
-    Apenas testes (TDD enforcement)
-    Apenas boas praticas (estilo, convencoes, minimal changes)
-    Minimo (apenas arquivo base da IA)
+    ...
+
+? Em qual idioma devem ser geradas as regras? (single-select)
+  > Português (Brasil)
+    English
 ```
+
+Rules can be generated in **Portuguese (Brazil)** or **English**. The CLI prompts remain in Portuguese.
 
 ## Process levels
 
 | Level | What gets generated |
 |-------|-------------------|
-| **Pipeline completa** | All rule files: TDD enforcement, best practices, architecture boundaries, minimal changes |
+| **Pipeline completa** | All rule files: TDD, best practices, architecture boundaries, minimal changes, security, commits & CI/CD |
 | **Apenas testes** | Only TDD enforcement rules |
 | **Apenas boas praticas** | Best practices + minimal changes rules |
 | **Minimo** | Only the base file (CLAUDE.md / AGENTS.md / base.mdc) |
