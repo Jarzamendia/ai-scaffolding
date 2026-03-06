@@ -1,12 +1,30 @@
 ---
+{% if rules_lang == "en-US" %}
+description: Global rules for project {{ project_name }}
+{% else %}
 description: Regras globais do projeto {{ project_name }}
+{% endif %}
 alwaysApply: true
 ---
 
 # {{ project_name }}
 
+{% if rules_lang == "en-US" %}
+<!-- Describe your project purpose here -->
+{% else %}
 <!-- Descreva o proposito do seu projeto aqui -->
+{% endif %}
 {% if language == "Python" %}
+{% if rules_lang == "en-US" %}
+## Stack
+
+- Language: Python
+- Tests: pytest
+- Lint/Format: ruff
+- Type check: mypy
+
+## Commands
+{% else %}
 ## Stack
 
 - Linguagem: Python
@@ -15,14 +33,25 @@ alwaysApply: true
 - Type check: mypy
 
 ## Comandos
+{% endif %}
 
 ```bash
-python -m pytest tests/ -v   # Testes
+python -m pytest tests/ -v   # Test
 ruff check .                 # Lint
 ruff format .                # Format
 mypy src/                    # Type check
 ```
 {% elif language == "Node.js" %}
+{% if rules_lang == "en-US" %}
+## Stack
+
+- Language: Node.js / TypeScript
+- Tests: vitest
+- Lint/Format: eslint + prettier
+- Type check: tsc
+
+## Commands
+{% else %}
 ## Stack
 
 - Linguagem: Node.js / TypeScript
@@ -31,15 +60,22 @@ mypy src/                    # Type check
 - Type check: tsc
 
 ## Comandos
+{% endif %}
 
 ```bash
-npx vitest run               # Testes
+npx vitest run               # Test
 npx eslint .                 # Lint
 npx prettier --check .       # Format check
 npx tsc --noEmit             # Type check
 ```
 {% endif %}
 
+{% if rules_lang == "en-US" %}
+## Rule Maintenance
+
+This file and the others in `.cursor/rules/` are living documents. Update them whenever the stack, commands, or project conventions change. Outdated rules produce contradictory instructions and harm code quality.
+{% else %}
 ## Manutencao das Regras
 
 Este arquivo e os demais em `.cursor/rules/` sao documentos vivos. Atualize-os sempre que a stack, comandos ou convencoes do projeto mudarem. Regras desatualizadas geram instrucoes contraditorias e comprometem a qualidade do codigo gerado.
+{% endif %}

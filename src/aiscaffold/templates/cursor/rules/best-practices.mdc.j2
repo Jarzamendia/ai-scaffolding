@@ -1,25 +1,45 @@
 ---
+{% if rules_lang == "en-US" %}
 description: Code style and best practices enforcement
+{% else %}
+description: Code style and best practices enforcement
+{% endif %}
 alwaysApply: true
 ---
 {% if language == "Python" %}
+{% if rules_lang == "en-US" %}
 # Best Practices - Python
 
-- Seguir PEP 8 e convencoes do ruff.
-- snake_case para funcoes/variaveis, PascalCase para classes.
-- Imports organizados: stdlib > terceiros > locais.
-- Usar apenas dependencias do `pyproject.toml`. Preferir stdlib.
-- Excecoes especificas, nunca `except Exception` generico.
-- pytest como runner. Agrupar testes em classes por contexto.
-- `ruff check .` para lint, `ruff format .` para formatacao.
+- **Always** follow PEP 8 and ruff. snake_case for functions/variables, PascalCase for classes.
+- Imports: stdlib > third-party > local. Dependencies only from `pyproject.toml`; prefer stdlib.
+- Specific exceptions, **never** generic `except Exception`.
+- pytest as runner. Group tests in classes by context. Mock I/O with `unittest.mock.patch`.
+- `ruff check .` for lint, `ruff format .` for format.
+{% else %}
+# Best Practices - Python
+
+- **Sempre** siga PEP 8 e convenções do ruff. snake_case para funções/variáveis, PascalCase para classes.
+- Imports: stdlib > terceiros > locais. Dependências só do `pyproject.toml`; preferir stdlib.
+- Exceções específicas, **nunca** `except Exception` genérico.
+- pytest como runner. Agrupar testes em classes por contexto. Mockar I/O com `unittest.mock.patch`.
+- `ruff check .` para lint, `ruff format .` para formatação.
+{% endif %}
 {% elif language == "Node.js" %}
+{% if rules_lang == "en-US" %}
 # Best Practices - Node.js
 
-- Seguir convencoes ESLint e Prettier.
-- camelCase para funcoes/variaveis, PascalCase para classes/tipos.
-- Imports organizados: node builtins > terceiros > locais.
-- Usar apenas dependencias do `package.json`. Preferir node builtins.
-- Tipos de erro especificos, nunca catch vazio.
-- vitest como runner. Agrupar testes em describe/it blocks.
+- **Always** follow ESLint and Prettier. camelCase for functions/variables, PascalCase for classes/types.
+- Imports: node builtins > third-party > local. Dependencies only from `package.json`; prefer builtins.
+- Specific error types, **never** empty catch.
+- vitest as runner. Group in describe/it. Mock I/O with `vi.mock()`.
+- `npx eslint .` for lint, `npx prettier --check .` for format.
+{% else %}
+# Best Practices - Node.js
+
+- **Sempre** siga ESLint e Prettier. camelCase para funções/variáveis, PascalCase para classes/tipos.
+- Imports: node builtins > terceiros > locais. Dependências só do `package.json`; preferir builtins.
+- Tipos de erro específicos, **nunca** catch vazio.
+- vitest como runner. Agrupar em describe/it. Mockar I/O com `vi.mock()`.
 - `npx eslint .` para lint, `npx prettier --check .` para formato.
+{% endif %}
 {% endif %}

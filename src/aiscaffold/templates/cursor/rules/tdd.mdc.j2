@@ -1,32 +1,61 @@
 ---
+{% if rules_lang == "en-US" %}
 description: Enforce TDD RED-GREEN-REFACTOR cycle on all code changes
+{% else %}
+description: Enforce TDD RED-GREEN-REFACTOR cycle on all code changes
+{% endif %}
 alwaysApply: true
 ---
 
 # TDD Enforcement
 
-Todo desenvolvimento segue obrigatoriamente o ciclo RED-GREEN-REFACTOR.
+{% if rules_lang == "en-US" %}
+**Always** follow the TDD cycle: RED, GREEN, REFACTOR. **Never** write production code without a failing test.
 
-## Regras
+## Inviolable Rules
 
-1. **NUNCA implemente codigo de producao sem um teste falhando primeiro.**
-2. **Padrao AAA** (Arrange-Act-Assert) para todos os testes.
-3. **Fase RED**: Escreva o teste, execute e confirme que falha.
-4. **Fase GREEN**: Implemente o minimo para o teste passar.
-5. **Fase REFACTOR**: Limpe sem quebrar testes.
-6. **NUNCA altere um teste para fazer codigo ruim passar.**
-{% if language == "Python" %}
+1. **NEVER implement production code without a failing test first.**
+
+2. **AAA pattern (Arrange-Act-Assert):** Add comments to delimit each section. Test names describe behaviour: `test_<action>_<expected_result>`.
+
+**Correct:** Use Arrange/Act/Assert comments in tests. **Wrong:** Single-line assert without clear structure.
+
+3. **RED:** Write a test that fails. **Never** proceed without seeing it fail.
+
+4. **GREEN:** Write the minimum code for the test to pass. **Do not** add extra functionality.
+
+5. **REFACTOR:** Improve code quality, **always** keeping all tests passing.
+
+6. **NEVER change a test to make bad code pass.**
+
+## Commands
+{% else %}
+**Sempre** siga o ciclo de Desenvolvimento Orientado a Testes (TDD): RED, GREEN, REFACTOR. **Nunca** escreva código de produção sem um teste que falhe em sua ausência.
+
+## Regras Invioláveis
+
+1. **NUNCA implemente código de produção sem um teste falhando primeiro.**
+
+2. **Padrão AAA (Arrange-Act-Assert):** Adicione comentários para delimitar cada seção. Nomes de teste descrevem comportamento: `test_<acao>_<resultado_esperado>`.
+
+**Certo:** Use comentários Arrange/Act/Assert nos testes. **Errado:** assert em uma linha sem organização clara.
+
+3. **RED:** Escreva um teste que falhe. **Nunca** avance sem ver o teste falhar.
+
+4. **GREEN:** Escreva o código mínimo para o teste passar. **Não** adicione funcionalidades extras.
+
+5. **REFACTOR:** Melhore a qualidade do código, **sempre** garantindo que todos os testes continuem passando.
+
+6. **NUNCA altere um teste para fazer código ruim passar.**
 
 ## Comandos
-
+{% endif %}
+{% if language == "Python" %}
 ```bash
 python -m pytest tests/ -v
 python -m pytest tests/ --cov --cov-report=term-missing
 ```
 {% elif language == "Node.js" %}
-
-## Comandos
-
 ```bash
 npx vitest run
 npx vitest run --coverage

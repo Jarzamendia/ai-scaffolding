@@ -1,12 +1,30 @@
 ---
+{% if rules_lang == "en-US" %}
 description: Minimal changes policy - only change what was requested
+{% else %}
+description: Minimal changes policy - only change what was requested
+{% endif %}
 alwaysApply: true
 ---
 
 # Minimal Changes
 
-1. **Altere apenas o que foi pedido.** Nao refatore codigo nao relacionado.
-2. **Sem gold plating.** Nao adicione features ou abstracoes nao solicitadas.
-3. **Sem refatoracoes oportunistas.** Reporte melhorias separadamente.
-4. **Testes cirurgicos.** Teste apenas o comportamento novo ou alterado.
-5. **Um commit, um proposito.** Escopo claro em uma frase.
+{% if rules_lang == "en-US" %}
+**Always** make the smallest change possible to satisfy the current requirement.
+
+1. **Change only what was requested.** Do not refactor unrelated code.
+2. **No gold plating.** Do not add unsolicited features or abstractions. Prefer simple duplicated code over premature complex abstraction.
+3. **No opportunistic refactoring.** Report improvements separately.
+4. **Step separation:** If refactoring is needed for a feature, do it in a distinct step (or commit). Never mix implementation with refactoring in the same set of changes.
+5. **Surgical tests.** Test only new or changed behaviour.
+6. **One commit, one purpose.** Clear scope in one sentence.
+{% else %}
+**Sempre** faça a menor mudança possível para satisfazer o requisito atual.
+
+1. **Altere apenas o que foi pedido.** Não refatore código não relacionado.
+2. **Sem gold plating.** Não adicione features ou abstrações não solicitadas. Prefira código duplicado simples a abstração complexa prematura.
+3. **Sem refatorações oportunistas.** Reporte melhorias separadamente.
+4. **Separação de passos:** Se refatoração for necessária para uma feature, faça em passo (ou commit) distinto. Nunca misture implementação com refatoração no mesmo conjunto de mudanças.
+5. **Testes cirúrgicos.** Teste apenas o comportamento novo ou alterado.
+6. **Um commit, um propósito.** Escopo claro em uma frase.
+{% endif %}

@@ -1,26 +1,94 @@
 # Architecture Boundaries
 
-Regras de separacao de responsabilidades e limites entre camadas.
+{% if rules_lang == "en-US" %}
+Rules for separation of responsibilities and boundaries between layers.
 
-## Principios
+## Principles
 
-1. **Separacao de camadas**: Cada modulo tem uma responsabilidade unica e bem definida. Nao misture logica de apresentacao com logica de negocio ou acesso a dados.
+1. **Layer separation:** Each module has a single, well-defined responsibility. **Never** mix presentation logic with business logic or data access.
 
-2. **Sem God Objects**: Nenhum modulo deve acumular multiplas responsabilidades. Se um arquivo crescer demais, extraia submodulos.
+2. **No God Objects:** No module should accumulate multiple responsibilities. If a file grows too large, extract submodules.
 
-3. **Dependencias unidirecionais**: O fluxo de dependencias deve ser claro e sem ciclos. Camadas superiores dependem das inferiores, nunca o contrario.
+3. **Unidirectional dependencies:** The dependency flow must be clear and acyclic. Upper layers depend on lower ones, **never** the reverse.
 
-4. **Sem imports circulares**: Se A importa B, B nao pode importar A. Extraia interfaces ou mova codigo compartilhado para um modulo separado.
-{% if language == "Python" %}
-5. **Convencoes Python**:
-   - Use packages para agrupar modulos relacionados.
-   - Prefira composicao sobre heranca.
-   - Interfaces via Protocol (typing) quando necessario.
-{% elif language == "Node.js" %}
-5. **Convencoes Node.js**:
-   - Use ES modules (import/export) consistentemente.
-   - Prefira composicao sobre heranca de classes.
-   - Interfaces via TypeScript interfaces quando necessario.
+4. **No circular imports:** If A imports B, B must not import A. Extract interfaces or move shared code to a separate module.
+
+5. **External data isolated:** Access to filesystem, network, database or external APIs must live in **dedicated modules**, never mixed with business logic.
+
+**Correct:**
+```python
+# business_logic.py
+def process_data(data):
+    # Business logic
+    pass
+
+# data_access.py
+def save_data(data):
+    # Database access
+    pass
+```
+
+**Wrong:**
+```python
+# mixed_logic.py
+def process_and_save_data(data):
+    # Business logic + database access in same module
+    pass
+```
+
+6. **Module size:** Keep files concise, ideally **under 300 lines**. If a module exceeds this, consider splitting it into smaller units with more specific responsibilities.
+{% else %}
+Regras de separação de responsabilidades e limites entre camadas.
+
+## Princípios
+
+1. **Separação de camadas:** Cada módulo tem uma responsabilidade única e bem definida. **Nunca** misture lógica de apresentação com lógica de negócio ou acesso a dados.
+
+2. **Sem God Objects:** Nenhum módulo deve acumular múltiplas responsabilidades. Se um arquivo crescer demais, extraia submódulos.
+
+3. **Dependências unidirecionais:** O fluxo de dependências deve ser claro e sem ciclos. Camadas superiores dependem das inferiores, **nunca** o contrário.
+
+4. **Sem imports circulares:** Se A importa B, B não pode importar A. Extraia interfaces ou mova código compartilhado para um módulo separado.
+
+5. **Dados externos isolados:** Acesso a filesystem, rede, banco de dados ou APIs externas deve ficar em **módulos dedicados**, nunca misturado com lógica de negócio.
+
+**Certo:**
+```python
+# business_logic.py
+def processar_dados(dados):
+    # Lógica de negócio
+    pass
+
+# data_access.py
+def salvar_dados(dados):
+    # Acesso ao banco de dados
+    pass
+```
+
+**Errado:**
+```python
+# mixed_logic.py
+def processar_e_salvar_dados(dados):
+    # Lógica de negócio + acesso ao banco no mesmo módulo
+    pass
+```
+
+6. **Tamanho de módulo:** Mantenha os arquivos concisos, idealmente **abaixo de 300 linhas**. Se um módulo exceder esse limite, considere dividi-lo em unidades menores com responsabilidades mais específicas.
 {% endif %}
+{% if language == "Python" %}
+{% if rules_lang == "en-US" %}
 
-6. **Dados externos sao isolados**: Acesso a filesystem, rede, banco de dados ou APIs externas deve ficar em modulos dedicados, nunca misturado com logica de negocio.
+7. **Python conventions:** Use packages to group related modules. Prefer composition over inheritance. Use `Protocol` (typing) for interfaces when needed.
+{% else %}
+
+7. **Convenções Python:** Use packages para agrupar módulos relacionados. Prefira composição sobre herança. Interfaces via `Protocol` (typing) quando necessário.
+{% endif %}
+{% elif language == "Node.js" %}
+{% if rules_lang == "en-US" %}
+
+7. **Node.js conventions:** Use ES modules (import/export) consistently. Prefer composition over class inheritance. Use TypeScript for interfaces when needed.
+{% else %}
+
+7. **Convenções Node.js:** Use ES modules (import/export) consistentemente. Prefira composição sobre herança de classes. Interfaces via TypeScript quando necessário.
+{% endif %}
+{% endif %}

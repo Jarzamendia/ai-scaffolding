@@ -1,24 +1,46 @@
 # {{ project_name }}
 
+{% if rules_lang == "en-US" %}
+<!-- Describe your project purpose here -->
+{% else %}
 <!-- Descreva o proposito do seu projeto aqui -->
+{% endif %}
 
 ## Stack
 {% if language == "Python" %}
+{% if rules_lang == "en-US" %}
+- Language: Python
+- Tests: pytest
+- Lint/Format: ruff
+- Type check: mypy
+{% else %}
 - Linguagem: Python
 - Testes: pytest
 - Lint/Format: ruff
 - Type check: mypy
+{% endif %}
 {% elif language == "Node.js" %}
+{% if rules_lang == "en-US" %}
+- Language: Node.js / TypeScript
+- Tests: vitest
+- Lint/Format: eslint + prettier
+- Type check: tsc
+{% else %}
 - Linguagem: Node.js / TypeScript
 - Testes: vitest
 - Lint/Format: eslint + prettier
 - Type check: tsc
 {% endif %}
+{% endif %}
 
+{% if rules_lang == "en-US" %}
+## Commands
+{% else %}
 ## Comandos
+{% endif %}
 {% if language == "Python" %}
 ```bash
-# Testes
+# Test
 python -m pytest tests/ -v
 
 # Lint
@@ -30,7 +52,7 @@ mypy src/
 ```
 {% elif language == "Node.js" %}
 ```bash
-# Testes
+# Test
 npx vitest run
 
 # Lint
@@ -42,6 +64,27 @@ npx tsc --noEmit
 ```
 {% endif %}
 
+{% if rules_lang == "en-US" %}
+## Mandatory Rules
+
+MANDATORY: Read the files in `.claude/rules/` before any implementation:
+
+- `.claude/rules/tdd-enforcement.md` - RED-GREEN-REFACTOR cycle required
+- `.claude/rules/best-practices.md` - Conventions and project standards
+- `.claude/rules/architecture-boundaries.md` - Layer separation and responsibilities
+- `.claude/rules/minimal-changes.md` - Narrow scope of changes
+- `.claude/rules/security.md` - Security and sanitization (injection, XSS, secrets)
+- `.claude/rules/commits-cicd.md` - Conventional Commits and CI priority
+
+## Rule Document Maintenance
+
+This file (CLAUDE.md) and the files in `.claude/rules/` are living documents. Keep them updated:
+
+- **CLAUDE.md**: Update whenever the stack, commands, or project structure changes. This file is the entry point — if outdated, all derived instructions are compromised.
+- **When to update**: When adding/removing dependencies, changing directory structure, build/test/lint commands, or project conventions.
+- **Rules in `.claude/rules/`**: Review at the end of each development cycle. Remove rules that no longer apply and add new ones as the project evolves.
+- **Principle**: Outdated rules are worse than no rules — they produce contradictory instructions and confuse the agent.
+{% else %}
 ## Regras Mandatorias
 
 MANDATORY: Leia os arquivos em `.claude/rules/` antes de qualquer implementacao:
@@ -50,6 +93,8 @@ MANDATORY: Leia os arquivos em `.claude/rules/` antes de qualquer implementacao:
 - `.claude/rules/best-practices.md` - Convencoes e padrao do projeto
 - `.claude/rules/architecture-boundaries.md` - Separacao de camadas e responsabilidades
 - `.claude/rules/minimal-changes.md` - Escopo restrito de alteracoes
+- `.claude/rules/security.md` - Seguranca e sanitizacao (injecao, XSS, segredos)
+- `.claude/rules/commits-cicd.md` - Conventional Commits e prioridade ao CI
 
 ## Manutencao dos Documentos de Regras
 
@@ -59,3 +104,4 @@ Este arquivo (CLAUDE.md) e os arquivos em `.claude/rules/` sao documentos vivos.
 - **Quando atualizar**: Ao adicionar/remover dependencias, mudar estrutura de diretorios, alterar comandos de build/test/lint, ou mudar convencoes do projeto.
 - **Regras em `.claude/rules/`**: Revise ao final de cada ciclo de desenvolvimento. Remova regras que nao se aplicam mais e adicione novas conforme o projeto evolui.
 - **Principio**: Regras desatualizadas sao piores que nenhuma regra — geram instrucoes contraditorias e confundem o agente.
+{% endif %}

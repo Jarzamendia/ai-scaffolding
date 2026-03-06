@@ -2,7 +2,11 @@
 
 ## Overview
 
+{% if rules_lang == "en-US" %}
+<!-- Describe your project purpose here -->
+{% else %}
 <!-- Descreva o proposito do seu projeto aqui -->
+{% endif %}
 
 ## Setup
 {% if language == "Python" %}
@@ -46,40 +50,104 @@ npx tsc --noEmit
 
 ### TDD Enforcement
 
-All changes MUST follow the RED-GREEN-REFACTOR cycle:
+{% if rules_lang == "en-US" %}
+**Always** follow the RED-GREEN-REFACTOR cycle. **Never** write production code without a failing test.
 
-1. **RED**: Write a failing test first. Run tests to confirm failure.
-2. **GREEN**: Write the minimum code to make the test pass.
-3. **REFACTOR**: Clean up while keeping all tests green.
+1. **RED:** Write a test that fails. Never proceed without seeing it fail.
+2. **GREEN:** Write the minimum code for the test to pass. Do not add extra functionality.
+3. **REFACTOR:** Improve code quality, always keeping all tests passing.
 
-NEVER write production code without a failing test.
-NEVER modify tests to make bad code pass.
+Use the **AAA (Arrange-Act-Assert)** pattern in tests, with comments delimiting each section. **Never** change a test to make bad code pass.
 
 ### Minimal Changes
 
-- Only change what was requested.
-- No gold plating or speculative features.
-- No opportunistic refactoring of unrelated code.
+- **Change only what was requested.** Do not refactor unrelated code.
+- **No gold plating.** Do not add unsolicited features or abstractions. Prefer simple duplicated code over premature complex abstraction.
+- **No opportunistic refactoring.** Report improvements separately. If refactoring is needed for a feature, do it in a distinct step (or commit).
+- **Surgical tests.** Test only new or changed behaviour.
+- **One commit, one purpose.**
 
 ### Architecture Boundaries
 
-- Separation of concerns: each module has one responsibility.
-- No God Objects or circular dependencies.
-- External I/O (filesystem, network, APIs) in dedicated modules only.
+- Layer separation: each module has a single responsibility. Do not mix presentation with business or data access logic.
+- No God Objects. Unidirectional dependencies; no cycles. No circular imports.
+- Access to filesystem, network, database or APIs in **dedicated modules**.
+- Keep files under **300 lines**; above that, consider splitting.
 
 ### Best Practices
 {% if language == "Python" %}
-- Follow PEP 8 and ruff conventions.
-- Use specific exceptions, never bare `except`.
-- Prefer stdlib over external dependencies.
-- Use pytest with AAA pattern (Arrange-Act-Assert).
+- Follow PEP 8 and ruff. snake_case / PascalCase. Imports: stdlib > third-party > local.
+- Specific exceptions, never generic `except Exception`. Prefer stdlib. pytest with AAA pattern.
 {% elif language == "Node.js" %}
-- Follow ESLint and Prettier conventions.
-- Use specific error types, never empty catch.
-- Prefer node builtins over external dependencies.
-- Use vitest with describe/it/expect pattern.
+- Follow ESLint and Prettier. camelCase / PascalCase. Organised imports.
+- Specific error types, never empty catch. Prefer node builtins. vitest with describe/it.
 {% endif %}
+
+### Security and Sanitization
+
+- **Injection:** Always parameterised queries or safe ORMs. Never concatenate strings for SQL.
+- **XSS:** Sanitise and escape dynamic data before rendering in HTML.
+- **Commands:** Use argument lists; never `shell=True` or shell concatenation.
+- **Secrets and PII:** Never in code. Use environment variables; never log sensitive data.
+- Validate input (format, type, length). Least privilege.
+
+### Commits and CI/CD
+
+- **Conventional Commits:** `type(scope): description` (feat, fix, docs, style, refactor, test, chore). One commit, one logical change. Title in imperative.
+- **CI:** Never skip tests. If CI fails, priority #1 is to read the log and fix. Do not start new tasks with a red pipeline.
+- **Secrets:** Never in code; use `.env.example`. Respect protected branches; use Pull Requests.
+
+## Document Maintenance
+
+This AGENTS.md is a living document. Update it whenever the stack, commands or project conventions change. Outdated rules produce contradictory instructions. If a test or lint command fails due to outdated configuration, propose updating this document before proceeding.
+{% else %}
+**Sempre** siga o ciclo RED-GREEN-REFACTOR. **Nunca** escreva código de produção sem um teste que falhe em sua ausência.
+
+1. **RED:** Escreva um teste que falhe. Nunca avance sem ver o teste falhar.
+2. **GREEN:** Escreva o código mínimo para o teste passar. Não adicione funcionalidades extras.
+3. **REFACTOR:** Melhore a qualidade do código, sempre garantindo que todos os testes continuem passando.
+
+Use o padrão **AAA (Arrange-Act-Assert)** nos testes, com comentários delimitando cada seção. **Nunca** altere um teste para fazer código ruim passar.
+
+### Minimal Changes
+
+- **Altere apenas o que foi pedido.** Não refatore código não relacionado.
+- **Sem gold plating.** Não adicione features ou abstrações não solicitadas. Prefira código duplicado simples a abstração complexa prematura.
+- **Sem refatorações oportunistas.** Reporte melhorias separadamente. Se refatoração for necessária para uma feature, faça em passo (ou commit) distinto.
+- **Testes cirúrgicos.** Teste apenas o comportamento novo ou alterado.
+- **Um commit, um propósito.**
+
+### Architecture Boundaries
+
+- Separação de camadas: cada módulo tem uma responsabilidade única. Não misture lógica de apresentação com negócio ou acesso a dados.
+- Sem God Objects. Dependências unidirecionais; sem ciclos. Sem imports circulares.
+- Acesso a filesystem, rede, banco ou APIs em **módulos dedicados**.
+- Mantenha arquivos abaixo de **300 linhas**; acima disso, considere dividir.
+
+### Best Practices
+{% if language == "Python" %}
+- Seguir PEP 8 e ruff. snake_case / PascalCase. Imports: stdlib > terceiros > locais.
+- Exceções específicas, nunca `except Exception`. Preferir stdlib. pytest com padrão AAA.
+{% elif language == "Node.js" %}
+- Seguir ESLint e Prettier. camelCase / PascalCase. Imports organizados.
+- Tipos de erro específicos, nunca catch vazio. Preferir node builtins. vitest com describe/it.
+{% endif %}
+
+### Security and Sanitization
+
+- **Injeção:** Sempre queries parametrizadas ou ORMs seguros. Nunca concatene strings para SQL.
+- **XSS:** Sanitize e escape dados dinâmicos antes de renderizar em HTML.
+- **Comandos:** Use listas de argumentos; nunca `shell=True` ou concatenação em shell.
+- **Segredos e PII:** Nunca no código. Use variáveis de ambiente; nunca logue dados sensíveis.
+- Valide entrada (formato, tipo, comprimento). Menor privilégio.
+
+### Commits and CI/CD
+
+- **Conventional Commits:** `tipo(escopo): descrição` (feat, fix, docs, style, refactor, test, chore). Um commit, uma mudança lógica. Título em imperativo.
+- **CI:** Nunca pule testes. Se o CI falhar, prioridade #1 é ler o log e corrigir. Não inicie novas tarefas com pipeline vermelho.
+- **Segredos:** Nunca no código; use `.env.example`. Respeite branches protegidas; use Pull Requests.
 
 ## Manutencao deste Documento
 
-Este AGENTS.md e um documento vivo. Atualize-o sempre que a stack, comandos ou convencoes do projeto mudarem. Regras desatualizadas geram instrucoes contraditorias e comprometem a qualidade do codigo gerado. Revise ao final de cada ciclo de desenvolvimento.
+Este AGENTS.md e um documento vivo. Atualize-o sempre que a stack, comandos ou convencoes do projeto mudarem. Regras desatualizadas geram instrucoes contraditorias. Se um comando de teste ou lint falhar por configuracao desatualizada, proponha atualizar este documento antes de prosseguir.
+{% endif %}

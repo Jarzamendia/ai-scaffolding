@@ -1,24 +1,57 @@
 # Minimal Changes Policy
 
-Regras para manter o escopo de alteracoes restrito e previsivel.
+{% if rules_lang == "en-US" %}
+**Always** make the smallest change possible to satisfy the current requirement. **Do not** add unsolicited functionality, abstractions, or refactoring.
 
-## Principios
+## Principles
+
+1. **Change only what was requested.**
+   - If the task is to add a feature, do not refactor existing code.
+   - If the task is to fix a bug, do not improve unrelated areas.
+
+2. **No gold plating.**
+   - Do not add features, parameters, or handling that were not requested.
+   - Do not create abstractions "for the future". Solve today's problem.
+   - **Prefer simple duplicated code over premature complex abstraction.**
+
+3. **No opportunistic refactoring.**
+   - Do not rename variables, reorganise imports, or change formatting of code that is not part of the task.
+   - If you find something that needs improvement, report it separately.
+
+4. **Step separation:** If a refactor is needed to implement a new feature, **always** do it in a distinct step (or separate commit). **Never** mix fix/implementation with refactoring in the same set of changes.
+
+**Correct:** (1) Implement the feature (RED/GREEN). (2) Refactor existing code (REFACTOR).
+
+**Wrong:** Refactoring code and implementing the feature at the same time.
+
+5. **Surgical tests.** Add tests only for new or changed behaviour. Do not add retrospective tests for code that was not modified.
+
+6. **One commit, one purpose.** Each change should have a clear scope describable in one sentence.
+{% else %}
+**Sempre** faça a menor mudança possível para satisfazer o requisito atual. **Não** adicione funcionalidades, abstrações ou refatorações não solicitadas.
+
+## Princípios
 
 1. **Altere apenas o que foi pedido.**
-   - Se a tarefa e adicionar uma feature, nao refatore codigo existente.
-   - Se a tarefa e corrigir um bug, nao melhore areas nao relacionadas.
+   - Se a tarefa é adicionar uma feature, não refatore código existente.
+   - Se a tarefa é corrigir um bug, não melhore áreas não relacionadas.
 
 2. **Sem gold plating.**
-   - Nao adicione features, parametros ou tratamentos que nao foram solicitados.
-   - Nao crie abstracoes "para o futuro". Resolva o problema de hoje.
+   - Não adicione features, parâmetros ou tratamentos que não foram solicitados.
+   - Não crie abstrações "para o futuro". Resolva o problema de hoje.
+   - **Prefira código duplicado simples a uma abstração complexa prematura.**
 
-3. **Sem refatoracoes oportunistas.**
-   - Nao renomeie variaveis, reorganize imports, ou mude formatacao de codigo que nao faz parte da tarefa.
+3. **Sem refatorações oportunistas.**
+   - Não renomeie variáveis, reorganize imports ou mude formatação de código que não faz parte da tarefa.
    - Se encontrar algo que precisa melhorar, reporte separadamente.
 
-4. **Testes cirurgicos.**
-   - Adicione testes apenas para o comportamento novo ou alterado.
-   - Nao adicione testes retroativos para codigo que nao foi modificado.
+4. **Separação de passos:** Se uma refatoração for necessária para implementar uma nova funcionalidade, **sempre** separe-a em um passo distinto (ou commit separado). **Nunca** misture correção/implementação com refatoração no mesmo conjunto de mudanças.
 
-5. **Um commit, um proposito.**
-   - Cada alteracao deve ter um escopo claro e descritivel em uma frase.
+**Certo:** (1) Implemente a funcionalidade (RED/GREEN). (2) Refatore o código existente (REFACTOR).
+
+**Errado:** Refatorar o código e implementar a funcionalidade ao mesmo tempo.
+
+5. **Testes cirúrgicos.** Adicione testes apenas para o comportamento novo ou alterado. Não adicione testes retroativos para código que não foi modificado.
+
+6. **Um commit, um propósito.** Cada alteração deve ter um escopo claro e descritível em uma frase.
+{% endif %}

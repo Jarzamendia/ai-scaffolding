@@ -1,52 +1,124 @@
 # TDD Enforcement
 
-Todo desenvolvimento neste repositorio segue obrigatoriamente o ciclo RED-GREEN-REFACTOR.
+{% if rules_lang == "en-US" %}
+**Always** follow the Test-Driven Development (TDD) cycle: RED, GREEN, REFACTOR. **Never** write production code without a failing test that would fail in its absence.
 
-## Regras Inviolaveis
+## Inviolable Rules
 
-1. **NUNCA implemente codigo de producao sem um teste falhando primeiro.**
-   - Antes de criar ou modificar qualquer arquivo de producao, deve existir um teste correspondente que falhe.
+1. **NEVER implement production code without a failing test first.**
+   - Before creating or modifying any production file, there must be a corresponding test that fails.
 
-2. **Padrao AAA (Arrange-Act-Assert)**
-   - Todo teste segue: preparar dados, executar acao, verificar resultado.
+2. **AAA pattern (Arrange-Act-Assert)**
+   - When writing tests, **always** use the AAA pattern. Add comments to delimit each section.
+   - Every test follows: prepare data (Arrange), execute action (Act), verify result (Assert).
+   - Test names describe behaviour: `test_<action>_<expected_result>`.
+
+**Correct:**
+```python
+def test_add_two_numbers():
+    # Arrange
+    a = 1
+    b = 2
+
+    # Act
+    result = add(a, b)
+
+    # Assert
+    assert result == 3
+```
+
+**Wrong:**
+```python
+def test_add_without_aaa():
+    assert add(1, 2) == 3  # Test without clear structure
+```
+
+3. **RED phase:** Write a test that fails. **Never** proceed without seeing the test fail.
+   - Create the test describing the desired behaviour.
+   - Run the test runner and confirm it fails.
+   - The failure must be due to missing implementation, not a syntax error.
+
+4. **GREEN phase:** Write the minimum code needed for the test to pass. **Do not** add extra functionality.
+   - Write only the code needed for the test to pass.
+   - Do not add speculative logic or extra features.
+
+5. **REFACTOR phase:** Improve code quality (readability, performance), **always** ensuring all tests keep passing.
+   - Only after GREEN, refactor to improve clarity or remove duplication.
+   - All tests must continue to pass.
+
+6. **NEVER change a test to make bad code pass.**
+
+## Verification Commands
+{% else %}
+**Sempre** siga o ciclo de Desenvolvimento Orientado a Testes (TDD): RED, GREEN, REFACTOR. **Nunca** escreva código de produção sem um teste que falhe em sua ausência.
+
+## Regras Invioláveis
+
+1. **NUNCA implemente código de produção sem um teste falhando primeiro.**
+   - Antes de criar ou modificar qualquer arquivo de produção, deve existir um teste correspondente que falhe.
+
+2. **Padrão AAA (Arrange-Act-Assert)**
+   - Ao escrever testes, **sempre** utilize o padrão AAA. Adicione comentários para delimitar cada seção.
+   - Todo teste segue: preparar dados (Arrange), executar ação (Act), verificar resultado (Assert).
    - Nomes de teste descrevem comportamento: `test_<acao>_<resultado_esperado>`.
 
-3. **Fase RED: Escreva o teste primeiro**
+**Certo:**
+```python
+def test_soma_dois_numeros():
+    # Arrange
+    a = 1
+    b = 2
+
+    # Act
+    resultado = soma(a, b)
+
+    # Assert
+    assert resultado == 3
+```
+
+**Errado:**
+```python
+def test_soma_sem_aaa():
+    assert soma(1, 2) == 3  # Teste sem organização clara
+```
+
+3. **Fase RED:** Escreva um teste que falhe. **Nunca** avance sem ver o teste falhar.
    - Crie o teste descrevendo o comportamento desejado.
    - Execute o runner de testes e confirme que falha.
-   - O erro deve ser por ausencia de implementacao, nao por erro de sintaxe.
+   - O erro deve ser por ausência de implementação, não por erro de sintaxe.
 
-4. **Fase GREEN: Implementacao minima**
-   - Escreva apenas o codigo necessario para o teste passar.
-   - Nao adicione logica especulativa ou features extras.
+4. **Fase GREEN:** Escreva o código mínimo necessário para o teste passar. **Não** adicione funcionalidades extras.
+   - Escreva apenas o código necessário para o teste passar.
+   - Não adicione lógica especulativa ou features extras.
 
-5. **Fase REFACTOR: Limpeza com rede de seguranca**
-   - Somente apos GREEN, refatore para melhorar clareza ou eliminar duplicacao.
+5. **Fase REFACTOR:** Melhore a qualidade do código (legibilidade, performance), **sempre** garantindo que todos os testes continuem passando.
+   - Somente após GREEN, refatore para melhorar clareza ou eliminar duplicação.
    - Todos os testes devem continuar passando.
 
-6. **NUNCA altere um teste para fazer codigo ruim passar.**
+6. **NUNCA altere um teste para fazer código ruim passar.**
 
-## Comandos de Verificacao
+## Comandos de Verificação
+{% endif %}
 {% if language == "Python" %}
 ```bash
-# Executar todos os testes
+# Run all tests
 python -m pytest tests/ -v
 
-# Executar teste especifico
-python -m pytest tests/test_exemplo.py::TestClasse::test_metodo -v
+# Run specific test
+python -m pytest tests/test_example.py::TestClass::test_method -v
 
-# Com cobertura
+# With coverage
 python -m pytest tests/ --cov --cov-report=term-missing
 ```
 {% elif language == "Node.js" %}
 ```bash
-# Executar todos os testes
+# Run all tests
 npx vitest run
 
-# Executar teste especifico
-npx vitest run tests/exemplo.test.ts
+# Run specific test
+npx vitest run tests/example.test.ts
 
-# Com cobertura
+# With coverage
 npx vitest run --coverage
 ```
 {% endif %}

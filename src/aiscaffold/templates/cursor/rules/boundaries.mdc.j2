@@ -1,12 +1,26 @@
 ---
+{% if rules_lang == "en-US" %}
 description: Architecture boundary rules - separation of concerns
+{% else %}
+description: Architecture boundary rules - separation of concerns
+{% endif %}
 alwaysApply: true
 ---
 
 # Architecture Boundaries
 
-1. **Separacao de camadas**: Cada modulo tem uma responsabilidade unica. Nao misture logica de apresentacao com logica de negocio.
-2. **Sem God Objects**: Nenhum modulo deve acumular multiplas responsabilidades.
-3. **Dependencias unidirecionais**: Sem ciclos de dependencia entre modulos.
-4. **Sem imports circulares**: Se A importa B, B nao importa A.
-5. **Dados externos isolados**: Acesso a filesystem, rede ou APIs fica em modulos dedicados.
+{% if rules_lang == "en-US" %}
+1. **Layer separation:** Each module has a single responsibility. Do not mix presentation logic with business logic or data access.
+2. **No God Objects:** No module should accumulate multiple responsibilities.
+3. **Unidirectional dependencies:** No cycles. Upper layers depend on lower ones, never the reverse.
+4. **No circular imports:** If A imports B, B must not import A.
+5. **External data isolated:** Access to filesystem, network or APIs in dedicated modules, never mixed with business logic.
+6. **Size:** Keep files under 300 lines. Above that, consider splitting into smaller units.
+{% else %}
+1. **Separação de camadas:** Cada módulo tem uma responsabilidade única. Não misture lógica de apresentação com lógica de negócio ou acesso a dados.
+2. **Sem God Objects:** Nenhum módulo deve acumular múltiplas responsabilidades.
+3. **Dependências unidirecionais:** Sem ciclos. Camadas superiores dependem das inferiores, nunca o contrário.
+4. **Sem imports circulares:** Se A importa B, B não importa A.
+5. **Dados externos isolados:** Acesso a filesystem, rede ou APIs em módulos dedicados, nunca misturado com lógica de negócio.
+6. **Tamanho:** Mantenha arquivos abaixo de 300 linhas. Acima disso, considere dividir em unidades menores.
+{% endif %}

@@ -1,69 +1,174 @@
 # Best Practices
 {% if language == "Python" %}
-## Estilo de Codigo
+{% if rules_lang == "en-US" %}
+## Code Style
 
-- Seguir PEP 8 e convencoes do ruff.
-- Usar snake_case para funcoes e variaveis, PascalCase para classes.
-- Strings com aspas duplas.
-- Imports organizados: stdlib > terceiros > locais, separados por linha em branco.
+- **Always** follow PEP 8 and ruff conventions.
+- snake_case for functions and variables, PascalCase for classes.
+- Organise imports: stdlib > third-party > local, separated by a blank line.
 
-## Dependencias
+**Correct:**
+```python
+def my_example_function(param_one: int) -> str:
+    return f"Value: {param_one}"
+```
 
-- Usar apenas dependencias declaradas no `pyproject.toml`.
-- Nao introduzir novas dependencias sem justificativa explicita.
-- Preferir stdlib quando possivel.
+**Wrong:**
+```python
+def myExampleFunction(paramOne):
+    return "Value: " + str(paramOne)
+```
 
-## Tratamento de Erros
+## Dependencies
 
-- Usar excecoes especificas, nunca `except Exception` generico.
-- Nao silenciar erros com `pass` em blocos except.
+- Use only dependencies declared in `pyproject.toml`. Prefer stdlib when possible.
+- Do not introduce new dependencies without explicit justification.
 
-## Testes
+## Error Handling
 
-- Usar pytest como runner exclusivo.
-- Agrupar testes em classes por contexto.
-- Usar `tmp_path` fixture para testes que escrevem no disco.
-- Mockar I/O externo com `unittest.mock.patch`.
+- Use specific exceptions, **never** generic `except Exception`.
+- Do not silence errors with `pass` in except blocks.
 
-## Ferramentas
+## Tests
+
+- Use pytest as the sole runner. Group tests in classes by context.
+- Use `tmp_path` fixture for tests that write to disk. Mock external I/O with `unittest.mock.patch`.
+
+## Tools
 
 ```bash
 ruff check .        # Lint
 ruff format .       # Format
 mypy src/           # Type check
 ```
-{% elif language == "Node.js" %}
-## Estilo de Codigo
+{% else %}
+## Estilo de Código
 
-- Seguir convencoes do ESLint e Prettier.
-- Usar camelCase para funcoes e variaveis, PascalCase para classes e tipos.
-- Strings com aspas simples (configuravel).
-- Imports organizados: node builtins > terceiros > locais.
+- **Sempre** siga PEP 8 e convenções do ruff.
+- snake_case para funções e variáveis, PascalCase para classes.
+- Imports organizados: stdlib > terceiros > locais, separados por linha em branco.
 
-## Dependencias
+**Certo:**
+```python
+def minha_funcao_exemplo(parametro_um: int) -> str:
+    return f"Valor: {parametro_um}"
+```
 
-- Usar apenas dependencias declaradas no `package.json`.
-- Nao introduzir novas dependencias sem justificativa explicita.
-- Preferir node builtins quando possivel.
+**Errado:**
+```python
+def minhaFuncaoExemplo(parametroUm):
+    return "Valor: " + str(parametroUm)
+```
+
+## Dependências
+
+- Usar apenas dependências declaradas no `pyproject.toml`. Preferir stdlib quando possível.
+- Não introduzir novas dependências sem justificativa explícita.
 
 ## Tratamento de Erros
 
-- Usar tipos de erro especificos ou classes customizadas.
-- Nao silenciar erros com catch vazio.
-- Usar try/catch para operacoes async, nunca .catch() ignorado.
+- Usar exceções específicas, **nunca** `except Exception` genérico.
+- Não silenciar erros com `pass` em blocos except.
 
 ## Testes
 
-- Usar vitest como runner.
-- Agrupar testes em describe/it blocks por contexto.
-- Usar temporary directories para testes que escrevem no disco.
-- Mockar I/O externo com vi.mock().
+- Usar pytest como runner exclusivo. Agrupar testes em classes por contexto.
+- Usar `tmp_path` fixture para testes que escrevem no disco. Mockar I/O externo com `unittest.mock.patch`.
 
 ## Ferramentas
+
+```bash
+ruff check .        # Lint
+ruff format .      # Format
+mypy src/          # Type check
+```
+{% endif %}
+{% elif language == "Node.js" %}
+{% if rules_lang == "en-US" %}
+## Code Style
+
+- **Always** follow ESLint and Prettier conventions.
+- camelCase for functions and variables, PascalCase for classes and types.
+- Organise imports: node builtins > third-party > local.
+
+**Correct:**
+```typescript
+function myExampleFunction(paramOne: number): string {
+    return `Value: ${paramOne}`;
+}
+```
+
+**Wrong:**
+```typescript
+function my_example_function(param_one: number): string {
+    return 'Value: ' + param_one;
+}
+```
+
+## Dependencies
+
+- Use only dependencies declared in `package.json`. Prefer node builtins when possible.
+- Do not introduce new dependencies without explicit justification.
+
+## Error Handling
+
+- Use specific error types or custom classes. **Never** empty catch.
+- Use try/catch for async operations; never ignore `.catch()`.
+
+## Tests
+
+- Use vitest as runner. Group tests in describe/it by context.
+- Use temporary directories for tests that write to disk. Mock external I/O with `vi.mock()`.
+
+## Tools
 
 ```bash
 npx eslint .            # Lint
 npx prettier --check .  # Format check
 npx tsc --noEmit        # Type check
 ```
+{% else %}
+## Estilo de Código
+
+- **Sempre** siga convenções do ESLint e Prettier.
+- camelCase para funções e variáveis, PascalCase para classes e tipos.
+- Imports organizados: node builtins > terceiros > locais.
+
+**Certo:**
+```typescript
+function minhaFuncaoExemplo(parametroUm: number): string {
+    return `Valor: ${parametroUm}`;
+}
+```
+
+**Errado:**
+```typescript
+function minha_funcao_exemplo(parametro_um: number): string {
+    return 'Valor: ' + parametro_um;
+}
+```
+
+## Dependências
+
+- Usar apenas dependências declaradas no `package.json`. Preferir node builtins quando possível.
+- Não introduzir novas dependências sem justificativa explícita.
+
+## Tratamento de Erros
+
+- Usar tipos de erro específicos ou classes customizadas. **Nunca** catch vazio.
+- Usar try/catch para operações async; nunca `.catch()` ignorado.
+
+## Testes
+
+- Usar vitest como runner. Agrupar testes em describe/it por contexto.
+- Usar temporary directories para testes que escrevem no disco. Mockar I/O externo com `vi.mock()`.
+
+## Ferramentas
+
+```bash
+npx eslint .            # Lint
+npx prettier --check .   # Format check
+npx tsc --noEmit        # Type check
+```
+{% endif %}
 {% endif %}
