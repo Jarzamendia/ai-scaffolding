@@ -79,6 +79,16 @@ class TestClaudeRulesTemplates:
         result = _render("claude/rules/minimal-changes.md.j2", language="Python")
         assert len(result) > 50
 
+    def test_security_template_renders(self):
+        result = _render("claude/rules/security.md.j2", language="Python")
+        assert "segredos" in result.lower() or "injection" in result.lower() or "parametrizad" in result.lower()
+        assert "subprocess" in result or "shell" in result.lower()
+
+    def test_commits_cicd_template_renders(self):
+        result = _render("claude/rules/commits-cicd.md.j2", language="Python")
+        assert "commit" in result.lower() or "conventional" in result.lower()
+        assert "CI" in result or "pipeline" in result.lower()
+
 
 # --- Cursor templates ---
 
@@ -118,6 +128,16 @@ class TestCursorTemplates:
         result = _render("cursor/rules/minimal-changes.mdc.j2", language="Python")
         assert "---" in result
 
+    def test_security_has_frontmatter_and_content(self):
+        result = _render("cursor/rules/security.mdc.j2", language="Python")
+        assert "---" in result
+        assert "segredos" in result.lower() or "injection" in result.lower()
+
+    def test_commits_cicd_has_frontmatter_and_content(self):
+        result = _render("cursor/rules/commits-cicd.mdc.j2", language="Python")
+        assert "---" in result
+        assert "commit" in result.lower() or "feat" in result
+
 
 # --- Codex templates ---
 
@@ -144,3 +164,30 @@ class TestCodexTemplates:
         result = _render("codex/base.md.j2", project_name="x", language="Python")
         lower = result.lower()
         assert "manuten" in lower or "maintenance" in lower or "atualiz" in lower
+
+    def test_agents_md_has_security_and_commits_sections(self):
+        result = _render("codex/base.md.j2", project_name="x", language="Python")
+        assert "Security" in result or "Seguranca" in result or "seguranca" in result
+        assert "Commits" in result or "CI/CD" in result
+
+    def test_agents_md_rules_lang_en_renders_english(self):
+        result = _render(
+            "codex/base.md.j2",
+            project_name="x",
+            language="Python",
+            rules_lang="en-US",
+        )
+        assert "Document Maintenance" in result
+        assert "Always" in result or "Never" in result
+        assert "One commit, one purpose" in result
+
+    def test_claude_base_rules_lang_en_renders_english(self):
+        result = _render(
+            "claude/base.md.j2",
+            project_name="x",
+            language="Python",
+            rules_lang="en-US",
+        )
+        assert "Mandatory Rules" in result
+        assert "Commands" in result
+        assert "living documents" in result or "Maintenance" in result

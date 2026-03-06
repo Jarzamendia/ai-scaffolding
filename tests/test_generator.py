@@ -40,6 +40,8 @@ class TestGeneratorClaude:
         assert (rules_dir / "best-practices.md").exists()
         assert (rules_dir / "architecture-boundaries.md").exists()
         assert (rules_dir / "minimal-changes.md").exists()
+        assert (rules_dir / "security.md").exists()
+        assert (rules_dir / "commits-cicd.md").exists()
 
     def test_tests_only_generates_only_tdd(self, tmp_path):
         generate_files(
@@ -54,6 +56,8 @@ class TestGeneratorClaude:
         assert not (rules_dir / "best-practices.md").exists()
         assert not (rules_dir / "architecture-boundaries.md").exists()
         assert not (rules_dir / "minimal-changes.md").exists()
+        assert not (rules_dir / "security.md").exists()
+        assert not (rules_dir / "commits-cicd.md").exists()
 
     def test_best_practices_only_generates_practices_and_minimal(self, tmp_path):
         generate_files(
@@ -68,6 +72,8 @@ class TestGeneratorClaude:
         assert (rules_dir / "best-practices.md").exists()
         assert not (rules_dir / "architecture-boundaries.md").exists()
         assert (rules_dir / "minimal-changes.md").exists()
+        assert not (rules_dir / "security.md").exists()
+        assert not (rules_dir / "commits-cicd.md").exists()
 
     def test_minimum_generates_only_base(self, tmp_path):
         generate_files(
@@ -106,6 +112,8 @@ class TestGeneratorCursor:
         assert (rules_dir / "best-practices.mdc").exists()
         assert (rules_dir / "architecture-boundaries.mdc").exists()
         assert (rules_dir / "minimal-changes.mdc").exists()
+        assert (rules_dir / "security.mdc").exists()
+        assert (rules_dir / "commits-cicd.mdc").exists()
 
     def test_minimum_generates_only_base(self, tmp_path):
         generate_files(
@@ -194,6 +202,7 @@ class TestCLIIntegration:
             "ais": ["Claude Code"],
             "language": "Python",
             "process_level": "Minimo (apenas arquivo base da IA)",
+            "rules_lang": "pt-BR",
         }
         runner = CliRunner()
         with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):

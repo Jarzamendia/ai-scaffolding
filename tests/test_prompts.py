@@ -1,4 +1,9 @@
-from aiscaffold.prompts import AI_CHOICES, LANGUAGE_CHOICES, PROCESS_LEVEL_CHOICES
+from aiscaffold.prompts import (
+    AI_CHOICES,
+    LANGUAGE_CHOICES,
+    PROCESS_LEVEL_CHOICES,
+    RULES_LANG_CHOICES,
+)
 
 
 class TestChoicesDefinitions:
@@ -28,3 +33,9 @@ class TestChoicesDefinitions:
 
     def test_process_levels_has_minimum(self):
         assert any("Minimo" in level for level in PROCESS_LEVEL_CHOICES)
+
+    def test_rules_lang_choices_contains_english(self):
+        assert "English" in RULES_LANG_CHOICES
+
+    def test_rules_lang_choices_contains_portuguese(self):
+        assert any("Português" in choice for choice in RULES_LANG_CHOICES)

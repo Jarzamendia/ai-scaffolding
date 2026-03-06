@@ -17,6 +17,7 @@ class TestCLIInit:
             "ais": ["Claude Code", "Cursor"],
             "language": "Python",
             "process_level": "Pipeline completa (TDD + boas praticas + fronteiras arquiteturais)",
+            "rules_lang": "pt-BR",
         }
         runner = CliRunner()
         with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
@@ -33,6 +34,7 @@ class TestCLIInit:
             "ais": ["Claude Code", "Cursor", "Codex"],
             "language": "Node.js",
             "process_level": "Minimo (apenas arquivo base da IA)",
+            "rules_lang": "pt-BR",
         }
         runner = CliRunner()
         with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
@@ -55,6 +57,7 @@ class TestCLIDryRun:
             "ais": ["Claude Code"],
             "language": "Python",
             "process_level": "Pipeline completa (TDD + boas praticas + fronteiras arquiteturais)",
+            "rules_lang": "pt-BR",
         }
         runner = CliRunner()
         with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
@@ -69,6 +72,7 @@ class TestCLIDryRun:
             "ais": ["Claude Code"],
             "language": "Python",
             "process_level": "Minimo (apenas arquivo base da IA)",
+            "rules_lang": "pt-BR",
         }
         runner = CliRunner()
         with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
@@ -83,6 +87,7 @@ class TestCLIDryRun:
             "ais": ["Claude Code"],
             "language": "Python",
             "process_level": "Minimo (apenas arquivo base da IA)",
+            "rules_lang": "pt-BR",
         }
         runner = CliRunner()
         with patch("aiscaffold.cli.ask_user_choices", return_value=mock_choices):
