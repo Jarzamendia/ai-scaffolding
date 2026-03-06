@@ -12,6 +12,8 @@ PROCESS_LEVEL_RULES = {
         "best-practices",
         "boundaries",
         "minimal-changes",
+        "security",
+        "commits-cicd",
     ],
     "Apenas testes (TDD enforcement)": [
         "tdd",
@@ -28,6 +30,8 @@ RULE_FILE_NAMES = {
     "best-practices": "best-practices",
     "boundaries": "architecture-boundaries",
     "minimal-changes": "minimal-changes",
+    "security": "security",
+    "commits-cicd": "commits-cicd",
 }
 
 
@@ -37,17 +41,23 @@ def generate_files(
     language: str,
     process_level: str,
     project_name: str,
+    rules_lang: str = "pt-BR",
     dry_run: bool = False,
 ) -> list[dict]:
     """Generate AI rule files based on user choices.
 
     Returns list of dicts with keys: path, status ("created" | "skipped").
+    rules_lang: "pt-BR" or "en-US" for the language of generated rule content.
     """
     env = Environment(
         loader=FileSystemLoader(TEMPLATES_DIR),
         keep_trailing_newline=True,
     )
-    context = {"project_name": project_name, "language": language}
+    context = {
+        "project_name": project_name,
+        "language": language,
+        "rules_lang": rules_lang,
+    }
     rules = PROCESS_LEVEL_RULES.get(process_level, [])
     results = []
 
