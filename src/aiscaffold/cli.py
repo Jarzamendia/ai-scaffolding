@@ -30,6 +30,7 @@ def init(output_dir, dry_run):
     click.echo(f"  IAs: {', '.join(choices['ais'])}")
     click.echo(f"  Linguagem: {choices['language']}")
     click.echo(f"  Nivel de processo: {choices['process_level']}")
+    click.echo(f"  Idioma das regras: {choices['rules_lang']}")
     click.echo("")
 
     results = generate_files(
@@ -38,6 +39,7 @@ def init(output_dir, dry_run):
         language=choices["language"],
         process_level=choices["process_level"],
         project_name=project_name,
+        rules_lang=choices["rules_lang"],
         dry_run=dry_run,
     )
 
