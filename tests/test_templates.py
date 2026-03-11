@@ -79,6 +79,7 @@ class TestClaudeRulesTemplates:
         result = _render("claude/rules/minimal-changes.md.j2", language="Python")
         assert len(result) > 50
 
+    # basic-commands rules were removed in favour of JSON configs
     def test_security_template_renders(self):
         result = _render("claude/rules/security.md.j2", language="Python")
         assert "segredos" in result.lower() or "injection" in result.lower() or "parametrizad" in result.lower()
@@ -128,6 +129,8 @@ class TestCursorTemplates:
         result = _render("cursor/rules/minimal-changes.mdc.j2", language="Python")
         assert "---" in result
 
+    # basic-commands rules were removed in favour of JSON configs
+
     def test_security_has_frontmatter_and_content(self):
         result = _render("cursor/rules/security.mdc.j2", language="Python")
         assert "---" in result
@@ -169,6 +172,12 @@ class TestCodexTemplates:
         result = _render("codex/base.md.j2", project_name="x", language="Python")
         assert "Security" in result or "Seguranca" in result or "seguranca" in result
         assert "Commits" in result or "CI/CD" in result
+
+    def test_agents_md_basic_commands_mentions_sandbox(self):
+        result = _render(
+            "codex/base.md.j2", project_name="x", language="Python", rules_lang="en-US"
+        )
+        assert "sandbox" in result.lower() or "shell" in result.lower()
 
     def test_agents_md_rules_lang_en_renders_english(self):
         result = _render(

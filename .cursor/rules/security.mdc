@@ -1,0 +1,14 @@
+---
+description: Security and sanitization - prevent injection, XSS, secure commands and secrets
+alwaysApply: true
+---
+
+# Security and Sanitization
+
+Trate toda entrada e dados externos como potencialmente maliciosos.
+
+1. **Injeção (SQL/NoSQL):** **Sempre** queries parametrizadas ou ORMs seguros. **Nunca** concatene strings para construir SQL. Ex.: certo `db.execute("... WHERE id = ?", [id])`, errado `db.execute(f"... WHERE id = {id}")`.
+2. **XSS:** **Sempre** sanitize e escape dados dinâmicos antes de renderizar em HTML. **Nunca** use `dangerouslySetInnerHTML` (ou equivalente) sem sanitização.
+3. **Comandos de sistema:** **Sempre** use listas de argumentos. **Nunca** `shell=True` ou concatenação em shell. Ex.: certo `subprocess.run(["ls", "-l", dir])`, errado `subprocess.run(f"ls -l {dir}", shell=True)`.
+4. **Segredos e PII:** **Nunca** no código. **Sempre** variáveis de ambiente ou gerenciador de segredos. **Nunca** logar dados sensíveis.
+5. **Validação:** Sempre verifique formato, tipo e comprimento de entradas. Prefira HTTPS e menor privilégio.

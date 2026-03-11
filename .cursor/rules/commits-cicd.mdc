@@ -1,0 +1,19 @@
+---
+description: Conventional Commits and CI/CD - atomic commits, never skip tests, fix CI first
+alwaysApply: true
+---
+
+# Commits and CI/CD
+
+## Commits
+
+- **Conventional Commits:** `tipo(escopo): descrição` — tipos: feat, fix, docs, style, refactor, test, chore.
+- **Atomicidade:** Um commit, uma mudança lógica. Título em modo imperativo (add, fix, não added/fixed).
+- **Certo:** `feat(auth): add JWT validation`. **Errado:** `fixed login and also changed styles`.
+
+## CI/CD
+
+- **Nunca** pule testes no CI. Verifique testes e lint localmente antes de commit/push.
+- Se o CI falhar: **prioridade #1** — leia o log, identifique causa, corrija com base na evidência. Não inicie novas tarefas com pipeline vermelho.
+- **Segredos:** Nunca no código. Use variáveis de ambiente; mantenha `.env.example` atualizado.
+- Respeite branches protegidas; use Pull Requests para integrar.

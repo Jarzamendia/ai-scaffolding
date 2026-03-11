@@ -1,0 +1,51 @@
+---
+
+description: Regras de uso de ferramentas e comandos permitidos para o Cursor neste workspace
+
+alwaysApply: true
+---
+
+# Basic Commands
+
+
+## Explorar o Codebase
+
+- Use referências `@file` e `@folder` para fornecer contexto ao discutir código.
+- Use `@codebase` para buscas amplas no projeto.
+- Sempre leia os arquivos que pretende alterar **antes** de editá-los.
+
+## Editar Arquivos
+
+- Use o Composer para mudanças em múltiplos arquivos. Descreva o plano completo antes de aplicar.
+- Prefira editar arquivos existentes a criar novos.
+- **Não** crie arquivos a menos que seja estritamente necessário para a tarefa.
+
+## Executar Comandos (Terminal)
+
+Use o terminal integrado para rodar testes, lint, type check e build.
+
+
+```bash
+# Testes
+python -m pytest tests/ -v
+
+# Lint e formatação
+ruff check .
+ruff format .
+
+# Type check
+mypy src/
+```
+
+
+- **Sempre** rode os testes antes de considerar uma mudança concluída.
+- **Sempre** rode o lint após modificar código.
+- Não reporte sucesso se testes ou lint estiverem falhando. Analise a falha, corrija e rode novamente.
+
+## Git (somente leitura por padrão)
+
+- Você **pode** rodar comandos git de leitura no terminal para entender o estado do repositório:
+  - `git status`, `git diff`, `git log --oneline -10`.
+- **NÃO** execute `git add`, `git commit`, `git push` ou qualquer comando git destrutivo a menos que o usuário peça explicitamente.
+- Quando o usuário pedir para commitar, siga Conventional Commits e nunca pule hooks (`--no-verify`).
+

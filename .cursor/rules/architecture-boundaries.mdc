@@ -1,0 +1,12 @@
+---
+description: Architecture boundary rules - separation of concerns
+alwaysApply: true
+---
+
+# Architecture Boundaries
+
+1. **Separacao de camadas**: Cada modulo tem uma responsabilidade unica. Nao misture logica de apresentacao com logica de negocio.
+2. **Sem God Objects**: Nenhum modulo deve acumular multiplas responsabilidades.
+3. **Dependencias unidirecionais**: Sem ciclos de dependencia entre modulos.
+4. **Sem imports circulares**: Se A importa B, B nao importa A.
+5. **Dados externos isolados**: Acesso a filesystem, rede ou APIs fica em modulos dedicados.

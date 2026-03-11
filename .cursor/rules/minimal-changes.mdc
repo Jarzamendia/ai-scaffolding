@@ -1,0 +1,12 @@
+---
+description: Minimal changes policy - only change what was requested
+alwaysApply: true
+---
+
+# Minimal Changes
+
+1. **Altere apenas o que foi pedido.** Nao refatore codigo nao relacionado.
+2. **Sem gold plating.** Nao adicione features ou abstracoes nao solicitadas.
+3. **Sem refatoracoes oportunistas.** Reporte melhorias separadamente.
+4. **Testes cirurgicos.** Teste apenas o comportamento novo ou alterado.
+5. **Um commit, um proposito.** Escopo claro em uma frase.

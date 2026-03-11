@@ -1,0 +1,25 @@
+---
+description: Regras globais do projeto ai-scaffolding
+alwaysApply: true
+---
+
+# ai-scaffolding
+
+<!-- Descreva o proposito do seu projeto aqui -->
+
+## Stack
+
+- Linguagem: Python
+- Testes: pytest
+- Lint/Format: ruff
+- Type check: mypy
+
+## Comandos
+
+```bash
+python -m pytest tests/ -v   # Testes
+ruff check .                 # Lint
+ruff format .                # Format
+mypy src/                    # Type check
+```
+

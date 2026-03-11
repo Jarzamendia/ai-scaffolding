@@ -71,10 +71,18 @@ npx tsc --noEmit             # Type check
 {% endif %}
 
 {% if rules_lang == "en-US" %}
+## Cursor settings (optional)
+
+To run tests/lint/git without being asked each time: **Settings > Cursor Settings > Agents > Auto-Run** — use **Run in Sandbox**. Add any command to **Command Allowlist** if it still prompts. To allow the agent to fetch specific sites, keep `.cursor/sandbox.json` in the repo with `networkPolicy.allow` listing domains.
+
 ## Rule Maintenance
 
 This file and the others in `.cursor/rules/` are living documents. Update them whenever the stack, commands, or project conventions change. Outdated rules produce contradictory instructions and harm code quality.
 {% else %}
+## Configuracao do Cursor (opcional)
+
+Para rodar testes/lint/git sem ser perguntado: **Settings > Cursor Settings > Agents > Auto-Run** — use **Run in Sandbox**. Se algum comando ainda pedir aprovacao, adicione-o na **Command Allowlist**. Para permitir fetch em sites especificos, mantenha um `.cursor/sandbox.json` no repo com `networkPolicy.allow` listando os dominios.
+
 ## Manutencao das Regras
 
 Este arquivo e os demais em `.cursor/rules/` sao documentos vivos. Atualize-os sempre que a stack, comandos ou convencoes do projeto mudarem. Regras desatualizadas geram instrucoes contraditorias e comprometem a qualidade do codigo gerado.

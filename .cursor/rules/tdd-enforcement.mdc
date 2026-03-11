@@ -1,0 +1,26 @@
+---
+description: Enforce TDD RED-GREEN-REFACTOR cycle on all code changes
+alwaysApply: true
+---
+
+# TDD Enforcement
+
+Todo desenvolvimento segue obrigatoriamente o ciclo RED-GREEN-REFACTOR.
+
+## Regras
+
+1. **NUNCA implemente codigo de producao sem um teste falhando primeiro.**
+2. **Padrao AAA** (Arrange-Act-Assert) para todos os testes.
+3. **Fase RED**: Escreva o teste, execute e confirme que falha.
+4. **Fase GREEN**: Implemente o minimo para o teste passar.
+5. **Fase REFACTOR**: Limpe sem quebrar testes.
+6. **NUNCA altere um teste para fazer codigo ruim passar.**
+
+
+## Comandos
+
+```bash
+python -m pytest tests/ -v
+python -m pytest tests/ --cov --cov-report=term-missing
+```
+

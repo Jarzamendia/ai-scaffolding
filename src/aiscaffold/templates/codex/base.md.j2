@@ -83,6 +83,32 @@ Use the **AAA (Arrange-Act-Assert)** pattern in tests, with comments delimiting 
 - Specific error types, never empty catch. Prefer node builtins. vitest with describe/it.
 {% endif %}
 
+### Basic Commands / Comandos basicos
+
+{% if rules_lang == "en-US" %}
+You run inside a **sandbox environment** with shell access. Use it for tests, lint, and read-only git.
+
+- **Exploring:** Use shell commands (`ls`, `cat`, `find`, `grep`) to read the project structure before proposing changes.
+{% if language == "Python" %}
+- **Tests and lint:** `python -m pytest tests/ -v` for tests, `ruff check .` and `ruff format .` for lint.
+{% elif language == "Node.js" %}
+- **Tests and lint:** `npx vitest run` for tests, `npx eslint .` and `npx prettier --check .` for lint.
+{% endif %}
+- Always run tests **and** lint before considering a change complete. Do not claim success if they are failing.
+- **Git:** Use `git status` and `git diff` to understand the repo state. Do not run `git add`, `git commit` or `git push` unless the user explicitly asks you to.
+{% else %}
+Você roda dentro de um **ambiente sandbox** com acesso ao shell. Use-o para testes, lint e git somente leitura.
+
+- **Explorar:** Use comandos do shell (`ls`, `cat`, `find`, `grep`) para ler a estrutura do projeto antes de propor alterações.
+{% if language == "Python" %}
+- **Testes e lint:** `python -m pytest tests/ -v` para testes, `ruff check .` e `ruff format .` para lint.
+{% elif language == "Node.js" %}
+- **Testes e lint:** `npx vitest run` para testes, `npx eslint .` e `npx prettier --check .` para lint.
+{% endif %}
+- Sempre rode testes **e** lint antes de considerar a mudança concluída. Não afirme sucesso se estiverem falhando.
+- **Git:** Use `git status` e `git diff` para entender o estado do repositório. Não execute `git add`, `git commit` ou `git push` a menos que o usuário peça explicitamente.
+{% endif %}
+
 ### Security and Sanitization
 
 - **Injection:** Always parameterised queries or safe ORMs. Never concatenate strings for SQL.

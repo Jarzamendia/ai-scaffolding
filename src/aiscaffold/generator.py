@@ -34,6 +34,82 @@ RULE_FILE_NAMES = {
     "commits-cicd": "commits-cicd",
 }
 
+SANDBOX_JSON = '''{
+  "networkPolicy": {
+    "default": "deny",
+    "allow": [
+      "pypi.org",
+      "files.pythonhosted.org",
+      "registry.npmjs.org",
+      "*.github.com",
+      "docs.python.org",
+      "developer.mozilla.org"
+    ]
+  }
+}
+'''
+
+CLI_PERMISSIONS_JSON = '''{
+  "permissions": {
+    "allow": [
+      "Shell(python -m pytest)",
+      "Shell(pytest)",
+      "Shell(ruff)",
+      "Shell(mypy)",
+      "Shell(npx vitest run)",
+      "Shell(npx eslint .)",
+      "Shell(npx prettier --check .)",
+      "Shell(npx tsc --noEmit)",
+      "Shell(npm test)",
+      "Shell(git status)",
+      "Shell(git diff)",
+      "Shell(git add .)",
+      "Shell(git commit)",
+      "Read(**/*)"
+    ]
+  }
+}
+'''
+
+CLAUDE_COMMANDS_JSON = '''{
+  "languageCommands": {
+    "Python": {
+      "test": "python -m pytest tests/ -v",
+      "lint": "ruff check .",
+      "format": "ruff format .",
+      "typeCheck": "mypy src/"
+    },
+    "Node.js": {
+      "test": "npx vitest run",
+      "lint": "npx eslint .",
+      "formatCheck": "npx prettier --check .",
+      "typeCheck": "npx tsc --noEmit"
+    }
+  },
+  "git": {
+    "status": "git status",
+    "diff": "git diff",
+    "addAll": "git add .",
+    "commit": "git commit"
+  }
+}
+'''
+
+CLAUDE_NETWORK_JSON = '''{
+  "networkPolicy": {
+    "default": "deny",
+    "allow": [
+      "pypi.org",
+      "files.pythonhosted.org",
+      "registry.npmjs.org",
+      "*.github.com",
+      "docs.python.org",
+      "developer.mozilla.org"
+    ]
+  }
+}
+'''
+
 
 def generate_files(
     output_dir: str,
@@ -92,8 +168,9 @@ def _generate_claude(
 ) -> list[dict]:
     results = []
     base = env.get_template("claude/base.md.j2").render(**context)
-    status = _write_file(os.path.join(output_dir, "CLAUDE.md"), base, dry_run)
-    results.append({"path": "CLAUDE.md", "status": status})
+    claude_md_path = os.path.join(output_dir, ".claude", "CLAUDE.md")
+    status = _write_file(claude_md_path, base, dry_run)
+    results.append({"path": ".claude/CLAUDE.md", "status": status})
 
     for rule_key in rules:
         template_name = f"claude/rules/{rule_key}.md.j2"
@@ -102,6 +179,14 @@ def _generate_claude(
         path = os.path.join(output_dir, ".claude", "rules", file_name)
         status = _write_file(path, content, dry_run)
         results.append({"path": f".claude/rules/{file_name}", "status": status})
+
+    commands_path = os.path.join(output_dir, ".claude", "commands.json")
+    status = _write_file(commands_path, CLAUDE_COMMANDS_JSON, dry_run)
+    results.append({"path": ".claude/commands.json", "status": status})
+
+    network_path = os.path.join(output_dir, ".claude", "network.json")
+    status = _write_file(network_path, CLAUDE_NETWORK_JSON, dry_run)
+    results.append({"path": ".claude/network.json", "status": status})
 
     return results
 
@@ -122,6 +207,14 @@ def _generate_cursor(
         path = os.path.join(output_dir, ".cursor", "rules", file_name)
         status = _write_file(path, content, dry_run)
         results.append({"path": f".cursor/rules/{file_name}", "status": status})
+
+    sandbox_path = os.path.join(output_dir, ".cursor", "sandbox.json")
+    status = _write_file(sandbox_path, SANDBOX_JSON, dry_run)
+    results.append({"path": ".cursor/sandbox.json", "status": status})
+
+    cli_path = os.path.join(output_dir, ".cursor", "cli.json")
+    status = _write_file(cli_path, CLI_PERMISSIONS_JSON, dry_run)
+    results.append({"path": ".cursor/cli.json", "status": status})
 
     return results
 

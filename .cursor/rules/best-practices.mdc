@@ -1,0 +1,15 @@
+---
+description: Code style and best practices enforcement
+alwaysApply: true
+---
+
+# Best Practices - Python
+
+- Seguir PEP 8 e convencoes do ruff.
+- snake_case para funcoes/variaveis, PascalCase para classes.
+- Imports organizados: stdlib > terceiros > locais.
+- Usar apenas dependencias do `pyproject.toml`. Preferir stdlib.
+- Excecoes especificas, nunca `except Exception` generico.
+- pytest como runner. Agrupar testes em classes por contexto.
+- `ruff check .` para lint, `ruff format .` para formatacao.
+
